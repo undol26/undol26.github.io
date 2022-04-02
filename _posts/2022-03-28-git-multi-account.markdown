@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "How to use multi account in git?"
+title:  "[git] How to use multi account in git?"
 date:   2022-03-28
 category: git
 ---
