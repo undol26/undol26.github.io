@@ -84,6 +84,7 @@ double m_CameraTranslateZ = m_Camera2BaseTF.getOrigin().getZ();
 ```
 
 값을 확인하면 다음과 같다.
+
 <img src="/public/img/ros/ros-tf1.png" alt=""/> 
 
 `base` 축 기준으로 `lidar`는 (0.5,0.3,0.5), `realsense`는 (0.5, -0.3, 0.5)에 있었다.
