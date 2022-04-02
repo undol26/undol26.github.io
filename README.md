@@ -15,13 +15,18 @@ permalink: /about/
 
 ## Education
 * Ph.D. in Electrical Engineering, Korea Advanced Institute of Science and Technology (KAIST)
-    * Dissertation: `"Design of Multipath Lightweight Deep Network"`
+    * Dissertation: "Design of Multipath Lightweight Deep Network"
     * Advised by Dr. Dong Eui Chang
 * M.S. in Electrical Engineering, Korea Advanced Institute of Science and Technology (KAIST)
     * Dissertation: "Hole Filled 3D Reconstruction Using Contour Based Sampling Algorithm in the Urban Environment"
     * Advised by Dr. Myung Jin Chung
 * B.S. in Electrical Engineering, Korea Advanced Institute of Science and Technology (KAIST)
 
+## Field Of Intereset
+* Computer/Robot Vision, Robotics, Autonomous Vehicles
+    * Object Detection/Classification
+* Deep Neural Networks, Lightweight Networks
+    * Object Detection/Classification
 ## Contact
 If you have questions about the post, feel free to [email me](mailto:undol26@gmail.com) or create an issue on GitHub. Enjoy!
 
