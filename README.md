@@ -4,8 +4,8 @@ title: About
 permalink: /about/
 ---
 ## Who am I?
-* 문제 해결 능력이 뛰어난 개발자.
-* 꾸준한 배움을 추구하는 개발자.
+* Outstanding problem-solving skills.
+* Pursue continuous learning.
 
 ## Employment History
 * (Jan. 2019 - Present) Head Researcher at [Twinny Co.,Ltd](https://twinny.ai/)
