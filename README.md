@@ -27,6 +27,7 @@ permalink: /about/
     * Object Detection/Classification
 * Deep Neural Networks, Lightweight Networks
     * Object Detection/Classification
+    
 ## Contact
 If you have questions about the post, feel free to [email me](mailto:undol26@gmail.com). Thanks :)
 
