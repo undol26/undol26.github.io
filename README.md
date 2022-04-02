@@ -10,7 +10,7 @@ permalink: /about/
 ## Employment History
 * (Jan. 2019 - Present) Head Researcher at [Twinny Co.,Ltd](https://twinny.ai/)
     * Autonomous Software Team 3. Robot Development Division.
-* (Jan. 2017 - Dec. 2018) Part-time Staff at Twinny Co.,Ltd
+* (Jan. 2017 - Dec. 2018) Part-time Staff at [Twinny Co.,Ltd](https://twinny.ai/)
     * Robot Development Division.    
 
 ## Education
