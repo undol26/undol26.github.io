@@ -14,13 +14,13 @@ permalink: /about/
     * Robot Development Division.    
 
 ## Education
-* Ph.D. in Electrical Engineering, Korea Advanced Institute of Science and Technology (KAIST)
+* Ph.D. in [Electrical Engineering](https://ee.kaist.ac.kr/), [Korea Advanced Institute of Science and Technology (KAIST)](https://www.kaist.ac.kr/kr/)
     * Dissertation: "Design of Multipath Lightweight Deep Network"
     * Advised by Dr. Dong Eui Chang
-* M.S. in Electrical Engineering, Korea Advanced Institute of Science and Technology (KAIST)
+* M.S. in [Electrical Engineering](https://ee.kaist.ac.kr/), [Korea Advanced Institute of Science and Technology (KAIST)](https://www.kaist.ac.kr/kr/)
     * Dissertation: "Hole Filled 3D Reconstruction Using Contour Based Sampling Algorithm in the Urban Environment"
     * Advised by Dr. Myung Jin Chung
-* B.S. in Electrical Engineering, Korea Advanced Institute of Science and Technology (KAIST)
+* B.S. in [Electrical Engineering](https://ee.kaist.ac.kr/), [Korea Advanced Institute of Science and Technology (KAIST)](https://www.kaist.ac.kr/kr/)
 
 ## Field Of Intereset
 * Computer/Robot Vision, Robotics, Autonomous Vehicles
