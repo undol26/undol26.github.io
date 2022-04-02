@@ -2,7 +2,7 @@
 layout: post
 title:  "How to use tf in ros c++?"
 date:   2022-03-29
-description: 하위 모듈이 로봇에 설치된 센서의 정보를 tf로 얻기 위해서는 어떻게 해야 하는가?
+category: ROS
 ---
 
 <p class="intro">다음과 같은 상황을 가정한다. 상위 구조에서 robot의 urdf를 tf로 생성한다. 서로 다른 축으로 정의된 여러 link를 한 축으로 어떻게 변경시키는가? 그리고 그 link의 값들은 어떻게 얻는가?</p>
