@@ -57,9 +57,9 @@ tag_dir: tag/
 #   - vendor/gems/
 #   - vendor/ruby/
 
-social:
-  github: undol26
-  email: undol26@gmail.com
-  linkedin: undol26
+# social:
+#   github: undol26
+#   email: undol26@gmail.com
+#   linkedin: undol26
 
-google_analytics: "UA-58263416-1"
+# google_analytics: "UA-58263416-1"
