@@ -26,14 +26,14 @@ ssh-keygen -t rsa -b 4096 -C "undol26A@gmail.com"
 undol26B도 같은 식으로 만들면 된다.
 
 # 2. github에 ssh 등록
-| <img src="/assets/img/git/ssh01.jpg" alt="" width="300"/>  | <img src="/assets/img/git/ssh02.jpg" alt="" width="300"/>  |
-| <img src="/assets/img/git/ssh03.jpg" alt="" width="300"/>  | <img src="/assets/img/git/ssh04.jpg" alt="" width="300"> |
+| <img src="/public/img/git/ssh01.jpg" alt="" width="300"/>  | <img src="/public/img/git/ssh02.jpg" alt="" width="300"/>  |
+| <img src="/public/img/git/ssh03.jpg" alt="" width="300"/>  | <img src="/public/img/git/ssh04.jpg" alt="" width="300"> |
 
 <!-- <figure>
-	<img src="/assets/img/git/ssh01.jpg" alt="" width="200"> 
-  <img src="/assets/img/git/ssh02.jpg" alt="" width="200"> 
-  <img src="/assets/img/git/ssh03.jpg" alt="" width="200"> 
-  <img src="/assets/img/git/ssh04.jpg" alt="" width="200"> 
+	<img src="/public/img/git/ssh01.jpg" alt="" width="200"> 
+  <img src="/public/img/git/ssh02.jpg" alt="" width="200"> 
+  <img src="/public/img/git/ssh03.jpg" alt="" width="200"> 
+  <img src="/public/img/git/ssh04.jpg" alt="" width="200"> 
 </figure> -->
 
 순서대로 따라하면 된다. github에 로그인한 자신의 계정에서 차례로 `1. 계정 선택` -> `2 Settings` -> `3. SSH and GPG keys` -> `4. New SSH key` 를 누르면 

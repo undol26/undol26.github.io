@@ -7,7 +7,7 @@ description: undefined reference to symbol '_ZN2tf17TransformListenerD1Ev']
 
 <p class="intro">undefined reference to symbol 은 cmake에서 뭔가를 missing 했을 때 일어나는 에러메시지이다. </p>
 
-<img src="/assets/img/debug/debug-ros-tf1.png" alt=""/> 
+<img src="/public/img/debug/debug-ros-tf1.png" alt=""/> 
 {%- highlight ruby -%}
 /usr/bin/ld: CMakeFiles/_test_node.dir/src/Test/Test.cpp.o: undefined reference to symbol '_ZN2tf17TransformListenerD1Ev'
 //opt/ros/melodic/lib/libtf.so: error adding symbols: DSO missing from command line
@@ -21,6 +21,6 @@ CMake를 봐도 특별히 없는 게 없었다.
 
 | 변경전      | 변경후 |
 | ----------- | ----------- |
-| <img src="/assets/img/debug/debug-ros-tf2.png" alt=""/>     | <img src="/assets/img/debug/debug-ros-tf3.png" alt=""/>       |
+| <img src="/public/img/debug/debug-ros-tf2.png" alt=""/>     | <img src="/public/img/debug/debug-ros-tf3.png" alt=""/>       |
 
 
