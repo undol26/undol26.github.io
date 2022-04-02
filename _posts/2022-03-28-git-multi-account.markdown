@@ -2,7 +2,7 @@
 layout: post
 title:  "How to use multi account in git?"
 date:   2022-03-28
-description: 여러 개정의 git이 있을 때 각각의 저장소에서 어떻게 push를 할 수 있는가?
+category: git
 ---
 
 <p class="intro"> 나는 github 계정이 개인용도와 회사용도 두 개 있다. 내 작업물을 올릴 때마다 git config에 저장된 게 다른 실수를 계속 하게 되어서 이 참에 방법을 찾아 보았다. </p>

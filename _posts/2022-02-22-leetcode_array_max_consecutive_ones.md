@@ -1,3 +1,10 @@
+---
+layout: post
+title:  "[leetcode] array max consecutive ones"
+date:   2022-02-22
+category: leetcode
+---
+
 # leetcode example
 
 ## * Arrays

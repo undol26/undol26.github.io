@@ -1,3 +1,10 @@
+---
+layout: post
+title:  "[leetcode] count even digits"
+date:   2022-02-22
+category: leetcode
+---
+
 # leetcode example
 
 ## * Arrays
