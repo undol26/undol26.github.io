@@ -15,7 +15,8 @@ ROS에서 tf에 관한 내용을 총 3개의 글로 작성하려고 한다. 이 
 
 즉, 한 센서 축을 다른 센서 축으로 옮기는 방법이라고 할 수 있다.
 ![alt text](/public/img/ros/frames2.png){: width="30%" height="30%"}{: .center}
-*Fig1. Complecated frames.*{:.image-caption}
+{:.image-caption}
+*Fig1. Complecated frames.*
 
 ## Problem Statement
 임의의 점 P (또는 벡터 P)를 A좌표축과 B좌표축이 표현하는 방법은 서로 다르다. 만약 A좌표축과 B좌표축간의 기하학적인 관계를 알고, A좌표축에서의 점 P의 위치 ($P_A$)를 안다면, B좌표축에서 점 P는 어떻게 표현할 수 있는가? 즉, **A좌표축을 어떻게 B좌표축으로 변화시킬 수 있는가?**
