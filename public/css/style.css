@@ -215,11 +215,9 @@ article.home div a:hover, article.home pre a:hover { color: #2c3e50; text-decora
 article img { max-width: 100%; }
 
 blockquote {
-	/* color: #828282; */
-	color: #e83e8c;
-  	/* border-left: 4px solid #ccc; */
-	border-left: 4px solid #e83e8c;
-  	padding-left: 10px;
+	color: #828282;
+	border-left: 4px solid #ccc;
+	padding-left: 10px;
   	margin: 0;
   	margin-bottom: 15px;
 }
