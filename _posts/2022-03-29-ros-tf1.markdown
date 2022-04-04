@@ -15,7 +15,8 @@ ROS에서 tf에 관한 내용을 총 3개의 글로 작성하려고 한다. 이 
 
 즉, 한 센서 축을 다른 센서 축으로 옮기는 방법이라고 할 수 있다.
 ![alt text](/public/img/ros/frames2.png){: width="30%" height="30%"}{: .center}
-<figcaption> Fig1. Complecated frames.</figcaption>{: .center}
+{:.image-caption}
+*Fig1. Complecated frames.*
 
 ## Problem Statement
 임의의 점 P (또는 벡터 P)를 A좌표축과 B좌표축이 표현하는 방법은 서로 다르다. 만약 A좌표축과 B좌표축간의 기하학적인 관계를 알고, A좌표축에서의 점 P의 위치 ($P_A$)를 안다면, B좌표축에서 점 P는 어떻게 표현할 수 있는가? 즉, **A좌표축을 어떻게 B좌표축으로 변화시킬 수 있는가?**
@@ -36,8 +37,8 @@ $ R_\theta =  \begin{bmatrix} cos(\theta) & -sin(\theta) \cr sin(\theta) & cos(\
 임의의 벡터 P는 임의의 좌표축 위의 점이기 때문에, 위 4번 정의에 해당한다. 따라서 우리가 구하려고 하는 A좌표축에서 바라본 점 $P_A$를 B좌표축에서 바라본 점 $P_B$로 변환하려면 위 4번 정의에 따라 $R^{-1}$를 적용해야 한다. R matrix는 orthonormal하기 때문에 다음의 관계가 성립한다.
 
 $ R_{\theta} ^{-1} = R_{\theta} ^{T} = \begin{bmatrix} cos(\theta) & sin(\theta) 
-\\ -sin(\theta) & cos(\theta) \end{bmatrix} = \begin{bmatrix} cos(-\theta) & -sin(-\theta) 
-\\ sin(-\theta) & cos(-\theta) \end{bmatrix} = R_{(-\theta)}$
+\cr -sin(\theta) & cos(\theta) \end{bmatrix} = \begin{bmatrix} cos(-\theta) & -sin(-\theta) 
+\cr sin(-\theta) & cos(-\theta) \end{bmatrix} = R_{(-\theta)}$
 
 다시 정리하면, 
 1. A좌표축을 B좌표축으로 변화하고 싶다.
@@ -48,4 +49,4 @@ $ R_{\theta} ^{-1} = R_{\theta} ^{T} = \begin{bmatrix} cos(\theta) & sin(\theta)
 
 
 ## 출처.
-- http://wiki.ros.org/tf
+- [http://wiki.ros.org/tf](http://wiki.ros.org/tf)
