@@ -15,7 +15,7 @@ ROS에서 tf에 관한 내용을 총 3개의 글로 작성하려고 한다. 이 
 
 즉, 한 센서 축을 다른 센서 축으로 옮기는 방법이라고 할 수 있다.
 ![alt text](/public/img/ros/frames2.png){: width="30%" height="30%"}{: .center}
-{:.image-caption}
+{: .text-center }
 *Fig1. Complecated frames.*
 
 ## Problem Statement
