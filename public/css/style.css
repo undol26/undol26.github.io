@@ -217,7 +217,8 @@ article img { max-width: 100%; }
 blockquote {
 	/* color: #828282; */
 	color: #e83e8c;
-  	border-left: 4px solid #ccc;
+  	/* border-left: 4px solid #ccc; */
+	border-left: 4px solid #e83e8c;
   	padding-left: 10px;
   	margin: 0;
   	margin-bottom: 15px;
