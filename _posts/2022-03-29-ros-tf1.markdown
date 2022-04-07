@@ -60,4 +60,5 @@ $ R_{\theta} ^{-1} = R_{\theta} ^{T} = \begin{bmatrix} cos(\theta) & sin(\theta)
 
 ---
 ## 관련글.
-1. [[ROS] TF(transform) - 2. Using urdf in ROS](https://undol26.github.io/ros/2022/04/07/ros-tf2.html)
+1. [[ROS] TF(transform) - 1. Prerequisite](https://undol26.github.io/ros/2022/03/29/ros-tf1.html)
+2. [[ROS] TF(transform) - 2. Using urdf in ROS](https://undol26.github.io/ros/2022/04/07/ros-tf2.html)
