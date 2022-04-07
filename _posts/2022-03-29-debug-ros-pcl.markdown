@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "[ROS] pcl debug. undefined reference to symbol '_ZN2tf17TransformListenerD1Ev']?"
+title:  "[Debug] PCL - undefined reference to symbol '_ZN2tf17TransformListenerD1Ev']?"
 date:   2022-03-29
-category: ROS, Debug
+category: Debug
 ---
 
 undefined reference to symbol 은 cmake에서 뭔가를 missing 했을 때 일어나는 에러메시지이다.
