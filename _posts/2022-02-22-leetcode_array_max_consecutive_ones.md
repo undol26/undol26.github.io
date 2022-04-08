@@ -6,7 +6,6 @@ category: leetcode
 ---
 # Arrays
 
-## <span style="color:#003300">Problem 1. Max consecutive ones.</span>
 ## Problem 1. Max consecutive ones.
 > Given a binary array nums, return the maximum number of consecutive 1's in the array.
 
@@ -17,16 +16,12 @@ category: leetcode
 > The maximum number of consecutive 1s is 3.
 
 ### Example 2:
-```
-Input: nums = [1,0,1,1,0,1]
-Output: 2
-```
+> Input: nums = [1,0,1,1,0,1] <br>
+> Output: 2
 
 ### Constraints:
-```
-1 <= nums.length <= 105
-nums[i] is either 0 or 1.
-```
+> 1 <= nums.length <= 105 <br>
+> nums[i] is either 0 or 1.
 
 ---
 ## My solution
@@ -35,7 +30,7 @@ nums[i] is either 0 or 1.
 
 어차피 input은 0 아니면 1이기 때문에, 0이 아닐때까지 더해주고 (count), input이 0이되면 더 이상 연속되지 않기 때문에, 지금까지 저장한 가장 큰 값(out)과 더해준 값(sum)을 비교하여, 최대값 (out)을 업데이트 하는 생각으로 접근하였다.
 
-```c++
+```cpp
 class Solution {
 public:
     int findMaxConsecutiveOnes(vector<int>& nums) {
