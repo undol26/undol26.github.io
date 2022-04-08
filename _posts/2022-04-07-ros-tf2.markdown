@@ -24,7 +24,7 @@ ROS에서 tf에 관한 내용을 총 4개의 글로 작성하려고 한다. 이 
 
 urdf는 **Unified Robot Description Format**의 줄임말로써 **통합 로봇 설명 형식**으로 해석이 된다. 즉, 이 urdf 파일로 정의된 센서 구성을 프로그램에서 불러오면, 통합된 로봇 설명 형식으로써 모두가 같은 방법으로 센서 구성을 읽어올 수 있고 사용할 수 있게 된다.
 
-우리가 센서로부터 얻는 데이터는 점(point cloud)이기 때문에 ros에서 지원하는 urdf를 사용하면 <span style="color:#f92672">**축을 변화하는 것이 아니라 점을 변환**</span> 한다. 
+우리가 좌표축을 변환시키기 보다 센서로부터 얻는 데이터인 점(point cloud)을 가지고 무언가를 할 것이다. ros에서 지원하는 urdf를 사용하면 이를 쉽게 이용할 수 있다.
 
 ## Example
 나는 cyglidar와 realsense 두 개를 사용할 것이다. 이 때 각각의 센서는 다음과 같이 위치한다. 로봇 중심축(chassis_link)을 기준으로 cyglidar(laser_link)는 <span style="color:#f92672">[0.5, 0.15, 0.74]</span> 만큼 translation 되어있고, rotation은 없다. 중심축(chassis_link)을 기준으로 realsense(camera_depth_optical_frame)는 <span style="color:#f92672">[0.5, -0.15, 0.74]</span> 만큼 translation 되어있고, <span style="color:#f92672">[r=-1.57, p=0, y=-1.57]</span> 만큼 rotation 되어있다. 모든 단위는 meter, radian이다.
@@ -42,11 +42,13 @@ urdf는 **Unified Robot Description Format**의 줄임말로써 **통합 로봇 
 
 위와 같이 구성된 센서를 urdf 파일로 표현하려면 어떻게 해야 하는가?
 
-위의 정의에서 <span style="color:#f92672">A=로봇 중심축, B=카메라</span> 라고 생각하면, <span style="color:#f92672">2번 정의</span>에 따라 카메라 축 위의 점을 로봇 중심축 위의 점으로 변환하는 행렬이 $R$이다. 
+우리가 제일 먼저 접근해야 하는 정의는 <span style="color:#f92672">2번 정의</span> 이다. (데이터 (point cloud) 를 변환하기 때문에)
+
+위의 정의에서 <span style="color:#f92672">A=로봇 중심축, B=카메라</span> 라고 생각하면, 카메라 축 위의 점을 로봇 중심축 위의 점으로 변환하는 행렬이 $R$이다. 
 
 이는 다른 말로 표현하면 <span style="color:#f92672">1번 정의</span>에 의해 로봇 중심축을 카메라 축으로 변환하는 행렬이 $R$이다. 
 
-**즉, 로봇 중심축(A)을 카메라 축(B)으로 translation, rotation하는 기하학적인 관계를 urdf에 적어주면 된다.**
+즉 보다 직관적으로 생각하려면 **"로봇 중심축(A)을 카메라 축(B)으로 translation, rotation하는 기하학적인 관계를 urdf에 적어주면 된다."** 고 생각하면 된다.
 
 urdf는 아래와 같이 작성한다.
 ```xml
@@ -183,7 +185,7 @@ $R = R_Z(90) \times R_Y(0) \times R_X(90) \\
 ## 결론
 다시 정리하면, 
 1. parent, child 관계를 잘 정립한다.
-2. urdf 의 관계식은 parent를 변환시켜서 child로 translation, rotation하는 기하학적인 관계를 rpy,xyz에 맞춰서 적으면 된다.
+2. urdf에 입력할 기하학적인 관계는 직관적인 <span style="color:#f92672">1번 정의</span>를 이용하여 <span style="color:#f92672">parent</span> 좌표축을 변환시켜서 <span style="color:#f92672">child</span> 좌표축으로 translation, rotation하는 기하학적인 관계를 rpy,xyz에 맞춰서 적으면 된다.
 
 
 ## 출처.
