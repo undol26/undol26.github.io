@@ -151,6 +151,13 @@ translation을 했다면 다음은 rotation의 차례이다.
 </figure>
 </center>
 
+<center>
+<figure>
+    <img src="/public/img/ros/ros-tf2-coord_change.png" alt=""> 
+	<figcaption>Fig3. - Coordinate Changes no width.</figcaption>
+</figure>
+</center>
+
 위의 그림과 같이 parent 의 Z축을 먼저 -90º 회전하고, 변환한 X축을 다시 -90º회전하면 child의 축과 같아진다. 이 때 회전순서는 반드시 <span style="color:#f92672">Z → Y → X 축 순서</span>로 회전을 해야 한다. 
 
 즉 $R=R_X(-90)R_Z(-90)$ 을 만족한다.
