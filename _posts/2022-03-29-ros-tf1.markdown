@@ -54,11 +54,16 @@ $ R_{\theta} ^{-1} = R_{\theta} ^{T} = \begin{bmatrix} cos(\theta) & sin(\theta)
 
 ## 예제
 1. 위의 그림 2에서 $B$좌표축은 $A$좌표축을 기준으로 $\theta=+45º$ 만큼 회전해있다. (<span style="color:#f92672">위 1번 정의</span>) <br> 
-2. 회전변환을 점 P는 $A$좌표축 기준으로 $P_A = (1,1)$이고, $P_B=(\sqrt2,0)$이다.
+2. 점 P는 $A$좌표축 기준으로 $P_A = (1,1)$이고, $P_B=(\sqrt2,0)$이다.
 
-이 때 점 $P_A$는 <span style="color:#f92672">위 4번 정의</span>에 의해 다음과 같이 $P_B$로 변환한다.
+점 $P_B$는 <span style="color:#f92672">위 2번 정의</span>에 의해 다음과 같이 $P_A$로 변환한다.
+$P_A = R_{\theta} P_B = \begin{bmatrix} cos(\theta) & -sin(\theta) \cr sin(\theta) & cos(\theta) \end{bmatrix} P_B = \begin{bmatrix} 1/\sqrt2 & -1/\sqrt2 \cr 1/\sqrt2 & 1/\sqrt2 \end{bmatrix} \begin{bmatrix} \sqrt2 \cr 0 \end{bmatrix} = \begin{bmatrix} 1 \cr 1 \end{bmatrix}$
 
-$P_B = R_{-\theta} P_A = \begin{bmatrix} cos(-\theta) & -sin(-\theta) \cr sin(-\theta) & cos(-\theta) \end{bmatrix} P_A = \begin{bmatrix} \sqrt2 & \sqrt2 \cr -\sqrt2 & \sqrt2 \end{bmatrix} \begin{bmatrix} 1 \cr 1 \end{bmatrix} = \begin{bmatrix} \sqrt2 \cr 0 \end{bmatrix}$
+<br>
+
+점 $P_A$는 <span style="color:#f92672">위 4번 정의</span>에 의해 다음과 같이 $P_B$로 변환한다.
+
+$P_B = R_{-\theta} P_A = \begin{bmatrix} cos(-\theta) & -sin(-\theta) \cr sin(-\theta) & cos(-\theta) \end{bmatrix} P_A = \begin{bmatrix} 1/\sqrt2 & 1/\sqrt2 \cr -1/\sqrt2 & 1/\sqrt2 \end{bmatrix} \begin{bmatrix} 1 \cr 1 \end{bmatrix} = \begin{bmatrix} \sqrt2 \cr 0 \end{bmatrix}$
 
 
 ## 결론
