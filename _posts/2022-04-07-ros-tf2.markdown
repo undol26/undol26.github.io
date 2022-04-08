@@ -8,7 +8,6 @@ category: ROS
 ## Intro.
 ROS에서 tf에 관한 내용을 총 4개의 글로 작성하려고 한다. 이 글은 그 중 두 번째인 urdf 이다. 
 
-
 ## urdf란?
 1편에서 언급한 TF 내용을 떠올려보자. 같은 센서 구성을 A패키지에서 정의할 때, B패키지에서 정의할 때 또는 C사람이 구현할 때, D사람이 구현할 때마다 저마다의 방법으로 한다면 통일성도 없고, 할 때마다 새로운 방법으로 정의될 수 있다. 하지만 이 
 <span style="color:#f92672">urdf</span> 란 것을 이용하면, 어떤 프로그램, 누가 코드를 짜더라도 같은 방식으로 진행할 수 있다.
@@ -21,12 +20,15 @@ urdf는 **Unified Robot Description Format**의 줄임말로써 **통합 로봇 
 
 <center>
 <figure>
-	<img src="/public/img/ros/ros-tf2-1.png" alt="" width="30%" height="30%"> 
-    <img src="/public/img/ros/ros-tf2-2.png" alt="" width="30%" height="30%"> 
-    <img src="/public/img/ros/ros-tf2-3.png" alt="" width="30%" height="30%"> 
+	<img src="/public/img/ros/ros-tf2-1.png" alt="" width="20%" height="20%"> 
+    <img src="/public/img/ros/ros-tf2-2.png" alt="" width="20%" height="20%"> 
+    <img src="/public/img/ros/ros-tf2-3.png" alt="" width="20%" height="20%"> 
+    <img src="/public/img/ros/ros-tf2-topview.png" alt="" width="20%" height="20%"> 
 	<figcaption>Fig1. - Sensors Configuration.</figcaption>
 </figure>
 </center>
+
+(RVIZ에서 x,y,z축을 쉽게 기억하는 방법은 RGB 순서를 기억하면 된다. R=X축, G=Y축, B=Z축이다!)
 
 이 때, urdf는 아래와 같이 작성한다.
 ```xml
@@ -119,13 +121,17 @@ parent를 기준 축으로 두고 child가 얼만큼 translation되어 있는지
 나의 경우 중심축 기준으로 realsense는 앞으로(x축) 0.5m, 왼쪽으로(y축) -0.15m, 위로(z축) 0.74m 떨어져 있기 때문에 <span style="color:#f92672">[0.5, -0.15, 0.74]</span>이라 적는다.
 
 ### 5. rotation
-**todo 그림 넣기**
+realsense는 아래 그림과 같이 parent를 기준 축으로 두고, parent를 Z축으로 -1.57rad (-90º) 회전하고, 회전한 후 변경된 X축으로 -1.57rad (-90º) 회전하면 child의 축과 같아진다. 이 때 회전순서는 반드시 <span style="color:#f92672">Z → Y → X 축 순서</span>로 회전을 해야 한다. (matrix 곱형태로는 $R_Z * R_Y * R_X$ 순서가 될것이다.) R matrix는 다음과 같다.
 
-realsense는 아래 그림과 같이 parent를 기준 축으로 두고, parent를 X축으로 -1.57rad (-90deg) 회전하고, 회전한 후 변경된 Z축으로 -1.57rad (-90deg) 회전하면 child의 축과 같아진다. 이 때 회전순서는 반드시 X → Y → Z 축 순서로 회전을 해야 한다. (matrix 곱형태로는 반대로 $R_Z * R_Y * R_X$ 순서가 될것이다.) R matrix는 다음과 같다.
+<center>
+<figure>
+    <img src="/public/img/ros/ros-tf2-coord_change.png" alt="" width="40%" height="40%"> 
+	<figcaption>Fig3. - Coordinate Changes.</figcaption>
+</figure>
+</center>
 
 $R = R_Z(-90) \times R_Y(0) \times R_X(-90) \\
  = \begin{bmatrix} cos(-90) & -sin(-90) & 0 \cr sin(-90) & cos(-90) & 0 \cr 0 & 0 & 1 \end{bmatrix} \times \begin{bmatrix} 1 & 0 & 0 \cr 0 & cos(-90) & -sin(-90) \cr 0 & sin(-90) & cos(-90) \end{bmatrix} \\ = \begin{bmatrix} 0 & 1 & 0 \cr -1 & 0 & 0 \cr 0 & 0 & 1 \end{bmatrix} \times \begin{bmatrix} 1 & 0 & 0 \cr 0 & 0 & 1 \cr 0 & -1 & 0 \end{bmatrix} = \begin{bmatrix} 0 & 0 & 1 \cr -1 & 0 & 0 \cr 0 & -1 & 0 \end{bmatrix}$
-
 
 ## 결론
 다시 정리하면, 

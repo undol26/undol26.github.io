@@ -36,7 +36,7 @@ ROS에서 tf에 관한 내용을 총 4개의 글로 작성하려고 한다. 이 
 
 <center>
 <figure>
-	<img src="/public/img/ros/coord.png" alt="" width="30%" height="30%"> 
+	<img src="/public/img/ros/ros-tf1-coord.png" alt="" width="30%" height="30%"> 
 	<figcaption>Fig2. - Coordinate System.</figcaption>
 </figure>
 </center>
