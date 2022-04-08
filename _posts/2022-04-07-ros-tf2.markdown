@@ -146,15 +146,8 @@ translation을 했다면 다음은 rotation의 차례이다.
 
 <center>
 <figure>
-    <img src="/public/img/ros/ros-tf2-coord_change.png" alt="" width="40%" height="40%"> 
-	<figcaption>Fig3. - Coordinate Changes.</figcaption>
-</figure>
-</center>
-
-<center>
-<figure>
     <img src="/public/img/ros/ros-tf2-coord_change.png" alt=""> 
-	<figcaption>Fig3. - Coordinate Changes no width.</figcaption>
+	<figcaption>Fig3. - Coordinate Changes.</figcaption>
 </figure>
 </center>
 
