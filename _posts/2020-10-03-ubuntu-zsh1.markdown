@@ -12,7 +12,7 @@ category: ubuntu
 
 이 거부감을 넘어서면 정만 신세계의 <span style="color:#f92672">zshell</span>의 장점을 맛볼 수 있다. 이 <span style="color:#f92672">zshell</span>의 장점은 다음 포스트에서 자세히 언급할 것이고, 이 포스트에서는 <span style="color:#f92672">zshell</span>을 설치하는 것만 작성한다.
 
-## Zshell Install
+## zshell Install
 
 다음을 입력한다.
 ```bash

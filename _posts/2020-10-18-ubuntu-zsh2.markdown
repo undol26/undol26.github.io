@@ -28,9 +28,9 @@ zsh_test1로 이동을 하고 싶은 상황이다.
 하지만 <span style="color:#f92672">zshell</span>에서는 cd 누르고 <span style="color:#f92672">tab</span>키를 누르면 마치 <span style="color:#f92672">ls</span>커맨드를 친것처럼 보이고, <span style="color:#f92672">tab</span>키를 눌러서 이동이 가능하다. 또는 <span style="color:#f92672">방향키(왼쪽/오른쪽/아래/위)</span>로 이동하고 싶은 directory를 선택할 수 있다. 
 
 ## directory 이동 시 단어/한음절 등으로 이동 가능 ★★★
-다음의 path 로 이동을 하는 환경을 가정하자.
+<span style="color:#f92672">~/zsh_test/</span> 위치에서 하위 트리로 이동을 하려고 한다. 모든 경로가 생각이 나지 않아서 <span style="color:#f92672">tab</span>키로 눌러가면서 이동하는 상황이다.
 ```bash
-cd ~/zsh_test/zsh_test1/src/twinny_package1
+cd zsh_test1/src/twinny_package1
 ```
 
 ![alt text](/public/img/ubuntu/zsh-2-3.gif)
@@ -49,6 +49,14 @@ cd st1/s/ge1
 ![alt text](/public/img/ubuntu/zsh-2-4.gif)
 
 위의 예제에서 같은 경로임에도 뜨지 않은 이유는 temp_test1 아래에는 s가 들어가는 폴더가 없기 때문에 자동으로 걸러지는 경우이다.
+
+## cd 명령어 생략 가능 ★
+
+![alt text](/public/img/ubuntu/zsh-2-4-2.gif)
+
+<span style="color:#f92672">bash shell</span>에서는 directory를 이동 하려면 <span style="color:#f92672">tab</span>키를 이용해서 불편하게 이동해야 한다.
+
+하지만 <span style="color:#f92672">zshell</span>에서는 cd 명령어를 생략하고 바로 원하는 디렉터리명을 입력해도 이동을 한다.
 
 ## cd .. 명령어의 편의성 ★
 현재 위치는 다음과 같다.
