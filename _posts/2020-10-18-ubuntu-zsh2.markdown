@@ -1,22 +1,21 @@
 ---
 layout: post
-title:  "[ubuntu] zshell - 2. Advantages"
+title:  "[ubuntu] zshell - 2. Advantages (1)"
 date:   2020-10-18
 category: ubuntu
 ---
 
 ## Intro.
-이번 포스팅에서는 zsh이 bash 보다 어떤 점이 좋은지를 나열하려 한다.
+이번 포스팅에서는 <span style="color:#f92672">zshell</span>이 <span style="color:#f92672">bash shell</span>보다 어떤 점이 좋은지를 나열하려 한다. 포스팅 길이가 생각보다 길어져서 두 편에 걸쳐서 글을 나열한다.
+
+이 포스팅을 한 줄로 요약하자면 <span style="color:#f92672">zshell</span>은 <span style="color:#f92672">bash shell</span>에 비해, directory간에 이동이 매우 편리하다.
 
 내 관점에서 편리한 기능을 별 3개 만점으로 표시한다.
 
-포스팅 길이가 생각보다 길어져서 두 편에 걸쳐서 글을 나열한다.
-
-이 포스팅을 한 줄로 요약하자면 zsh은 bash에 비해, directory간에 이동이 매우 편리하다
-
-git파일의 왼쪽은 <span style="color:#f92672">bash shell</span>, 오른쪽은 <span style="color:#f92672">zshell</span> 이다.
+git파일의 왼쪽은 <span style="color:#f92672">bash shell</span>, 오른쪽은 <span style="color:#f92672">zshell</span>이다.
 
 현재 위치 및 하위 디렉터리 구성은 다음과 같다.
+
 ![alt text](/public/img/ubuntu/zsh-2-1.png)
 
 ## tab키 및 방향키 지원 ★★
@@ -26,7 +25,7 @@ zsh_test1로 이동을 하고 싶은 상황이다.
 
 <span style="color:#f92672">bash shell</span>에서는 폴더를 이동하려면 cd 누르고 <span style="color:#f92672">tab</span>키를 누르면 어떤 directory가 있는지 확인만 될뿐 이동이 되지 않는다.
 
-하지만 <span style="color:#f92672">zshell</span>에서는 cd 누르고 <span style="color:#f92672">tab</span>키를 누르면 마치 <span style="color:#f92672">ls</span> 커맨드를 친것처럼 보이고, <span style="color:#f92672">tab</span>키를 눌러서 이동이 가능하다. 또는 <span style="color:#f92672">방향키(왼쪽/오른쪽/아래/위)</span>로 이동하고 싶은 directory를 선택할 수 있다. 
+하지만 <span style="color:#f92672">zshell</span>에서는 cd 누르고 <span style="color:#f92672">tab</span>키를 누르면 마치 <span style="color:#f92672">ls</span>커맨드를 친것처럼 보이고, <span style="color:#f92672">tab</span>키를 눌러서 이동이 가능하다. 또는 <span style="color:#f92672">방향키(왼쪽/오른쪽/아래/위)</span>로 이동하고 싶은 directory를 선택할 수 있다. 
 
 ## directory 이동 시 단어/한음절 등으로 이동 가능 ★★★
 다음의 path 로 이동을 하는 환경을 가정하자.
@@ -67,7 +66,7 @@ cd st1/s/ge1
 
 하지만 <span style="color:#f92672">zshell</span>에서는 상위 디렉터리로 올라가는 기본 <span style="color:#f92672">../</span>에다가, 그 위로 갈때마다 점을 한개씩 추가하면 된다. 여기서는 디렉터리 총 3개 위로 올라가야 하므로, 첫 상위 (기본 두 개) + 총 두 번 더(점 두 개 더) 해서 총 점 4개를 넣으면 된다. <span style="color:#f92672">cd ....</span>)  
 
-그렇다고 <span style="color:#f92672">cd ..........</span> 처럼 한도 끝도 없이 점을 쓸수는 없고, 실험해보니 최대 5개까지 지원한다.
+그렇다고 <span style="color:#f92672">cd ..........</span>처럼 한도 끝도 없이 점을 쓸수는 없고, 실험해보니 최대 5개까지 지원한다.
 
 ## 결론
 다시 정리하면, 
@@ -75,4 +74,5 @@ cd st1/s/ge1
 
 ## 관련글.
 1. [[ubuntu] zshell - 1. Install](https://undol26.github.io/ubuntu/2020/10/03/ubuntu-zsh1.html)
-2. [[ubuntu] zshell - 2. Advantages](https://undol26.github.io/ubuntu/2020/10/18/ubuntu-zsh2.html)
+2. [[ubuntu] zshell - 2. Advantages (1)](https://undol26.github.io/ubuntu/2020/10/18/ubuntu-zsh2.html)
+3. [[ubuntu] zshell - 3. Advantages (2)](https://undol26.github.io/ubuntu/2020/10/19/ubuntu-zsh3.html)

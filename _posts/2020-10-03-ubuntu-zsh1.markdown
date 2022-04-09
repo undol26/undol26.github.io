@@ -104,4 +104,5 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 ## 관련글.
 1. [[ubuntu] zshell - 1. Install](https://undol26.github.io/ubuntu/2020/10/03/ubuntu-zsh1.html)
-2. [[ubuntu] zshell - 2. Advantages](https://undol26.github.io/ubuntu/2020/10/18/ubuntu-zsh2.html)
+2. [[ubuntu] zshell - 2. Advantages (1)](https://undol26.github.io/ubuntu/2020/10/18/ubuntu-zsh2.html)
+3. [[ubuntu] zshell - 3. Advantages (2)](https://undol26.github.io/ubuntu/2020/10/19/ubuntu-zsh3.html)
