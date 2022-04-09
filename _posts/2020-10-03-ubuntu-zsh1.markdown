@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[ubuntu] zshell - 1. Install"
-date:   2020-09-28
+date:   2020-10-03
 category: ubuntu
 ---
 
@@ -31,6 +31,7 @@ exec zsh
 ![alt text](/public/img/ubuntu/zsh-install2.gif)
 
 이러면 다음과 같은 창이 터미널에 뜰 것이다.
+
 ![alt text](/public/img/ubuntu/zsh-install3.png)
 
 읽어보면 <span style="color:#f92672">.zshrc</span> 파일을 어떻게 설정할 것인가에 대한 선택이다. 우리는 필요할 때 마다 직접 수정할 것이므로 2번을 선택한다. (터미널 창에 숫자 2 입력)
@@ -100,3 +101,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 누구라도 제발 이 글을 읽는 사람들은 꼭 <span style="color:#f92672">bash shell</span>이 아닌 <span style="color:#f92672">zsh</span>을 사용했으면 한다. 
 
 # 강력한 홍보글이다!!
+
+## 관련글.
+1. [[ubuntu] zshell - 1. Install](https://undol26.github.io/ubuntu/2020/10/03/ubuntu-zsh1.html)
+2. [[ubuntu] zshell - 2. Advantages](https://undol26.github.io/ubuntu/2020/10/18/ubuntu-zsh2.html)
