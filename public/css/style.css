@@ -78,6 +78,11 @@ code {
 	margin: 0px;
 }
 
+code:not(pre > code){
+	color: #f0506e;
+	background-color: #f8f9fa;
+  }
+
 /* .highlight,pre.highlight{
 	font-family: 'D2 coding', "Consolas", monospace;
 	color: #f92672;
