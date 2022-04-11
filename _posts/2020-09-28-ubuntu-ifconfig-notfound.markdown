@@ -15,11 +15,6 @@ ifconfig
 
 를 입력했더니
 
-{%- highlight bash -%}
-➜  ~ ifconfig
-zsh: command not found: ifconfig
-{%- endhighlight -%}
-
 ``` bash
 ➜  ~ ifconfig
 zsh: command not found: ifconfig
