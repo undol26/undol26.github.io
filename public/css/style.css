@@ -70,14 +70,17 @@ pre {
 	padding-bottom: 10px;
 	padding: 5px;
 	line-height: 1.2;
-	color: #f92672;
-	background-color: #e6db74;
 }
 
 code {
 	font-family: "Menlo", "Consolas", monospace;
 	font-size: 0.8em;
 	margin: 0px;
+}
+
+.highlight,pre.highlight{
+	/* font-family: 'D2 coding', "Consolas", monospace; */
+	font-family: 'Menlo', "Consolas", monospace;
 	color: #f92672;
 	background-color: #e6db74;
 }
