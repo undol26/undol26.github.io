@@ -7,10 +7,10 @@ category: Debug
 
 undefined reference to symbol 은 cmake에서 뭔가를 missing 했을 때 일어나는 에러메시지이다.
 
-{%- highlight ruby -%}
+```bash
 /usr/bin/ld: CMakeFiles/_test_node.dir/src/Test/Test.cpp.o: undefined reference to symbol '_ZN2tf17TransformListenerD1Ev'
 //opt/ros/melodic/lib/libtf.so: error adding symbols: DSO missing from command line
-{%- endhighlight -%}
+```
 
 CMake를 봐도 특별히 없는 게 없었다. 
 한 줄씩 지워가면서 확인을 해봤는데. 원인은 <span style="color:#f92672">PCL library</span> 이었다.

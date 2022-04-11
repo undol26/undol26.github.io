@@ -61,9 +61,9 @@ cd st1/s/ge1
 ## cd .. 명령어의 편의성 ★
 현재 위치는 다음과 같다.
 
-{%- highlight ruby -%}
+```bash
 ~/zsh_test/zsh_test1/src/twinny_package1/a4/a5
-{%- endhighlight -%}
+```
 
 
 이때 src 위치로 가고 싶다. (총 3번 위로 올라가야 함)
