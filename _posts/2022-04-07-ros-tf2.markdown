@@ -8,7 +8,7 @@ category: ROS
 ## Intro.
 ROS에서 tf에 관한 내용을 총 4개의 글로 작성하려고 한다. 이 글은 그 중 두 번째인 urdf 이다. 
 
-첫 번째 글에서 언급한 내용이 여기서도 중요하게 쓰이기 때문에 다시 언급한다. 자세한 내용은 [첫번째 시리즈](https://undol26.github.io/ros/2022/03/29/ros-tf1.html)를 참고 바란다.
+첫 번째 글에서 언급한 내용이 여기서도 중요하게 쓰이기 때문에 다시 언급한다. 자세한 내용은 [첫 번째 시리즈](https://undol26.github.io/ros/2022/03/29/ros-tf1.html)를 참고 바란다.
 
 ### Definition
 > 좌표축을 변환한다는 것과, 좌표축 위의 점을 변환한다는 것은 반대(inverse)의 개념이다. 이를 바탕으로 아래 정의하는 네 가지는 모두 같은 표현이다. <br>
@@ -190,9 +190,12 @@ $R = R_Z(90) \times R_Y(0) \times R_X(90) \\
 
 ## 출처.
 - [http://wiki.ros.org/urdf/Tutorials](http://wiki.ros.org/urdf/Tutorials)
-- [http://wiki.ros.org/urdf/Tutorials/Create%20your%20own%20urdf%20file](http://wiki.ros.org/urdf/Tutorials/Create%20your%20own%20urdf%20file)
+- [http://wiki.ros.org/urdf/Tutorials/Create your own urdf file](http://wiki.ros.org/urdf/Tutorials/Create%20your%20own%20urdf%20file)
 
 ---
 ## 관련글.
 1. [[ROS] TF(transform) - 1. Prerequisite](https://undol26.github.io/ros/2022/03/29/ros-tf1.html)
 2. [[ROS] TF(transform) - 2. Using urdf in ROS](https://undol26.github.io/ros/2022/04/07/ros-tf2.html)
+
+---
+`이것은 코드블락 테스트`
