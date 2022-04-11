@@ -72,18 +72,11 @@ pre {
 	line-height: 1.2;
 }
 
-/* code {
-	font-family: "Menlo", "Consolas", monospace;
-	font-size: 0.8em;
-	margin: 0px;
-} */
-
 code {
 	font-family: "Menlo", "Consolas", monospace;
 	font-size: 0.8em;
 	padding: 2px 4px;
-	/* color: #f92672; */
-	color: #070750;
+	color: #f92672;
 	background-color: #f9f2f4;
 	border-radius: 4px;
 }
