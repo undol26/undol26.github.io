@@ -78,12 +78,12 @@ code {
 	margin: 0px;
 }
 
-.highlight,pre.highlight{
+/* .highlight,pre.highlight{
 	/* font-family: 'D2 coding', "Consolas", monospace; */
 	font-family: 'Menlo', "Consolas", monospace;
 	color: #f92672;
 	background-color: #e6db74;
-}
+} */
 
 .container {
 	min-height: 100%;
