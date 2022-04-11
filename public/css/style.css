@@ -70,6 +70,8 @@ pre {
 	padding-bottom: 10px;
 	padding: 5px;
 	line-height: 1.2;
+	color: #f92672;
+	background-color: #e6db74;
 }
 
 code {
