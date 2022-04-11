@@ -15,10 +15,15 @@ ifconfig
 
 를 입력했더니
 
-{%- highlight ruby -%}
+{%- highlight bash -%}
 ➜  ~ ifconfig
 zsh: command not found: ifconfig
 {%- endhighlight -%}
+
+``` bash
+➜  ~ ifconfig
+zsh: command not found: ifconfig
+```
 
 띠용.. 이게 기본이 아니라니...
 
