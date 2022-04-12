@@ -84,8 +84,10 @@ directory를 이동 하려면 `../`커맨드를 몇 번이고 이용해야 한�
 ## 결론
 다시 정리하면, 
 1. `bash shell`에 비해 `zshell`은 directory간의 이동이 훨씬 편하다.
+<br>
 
-## 관련글.
+---
+## 관련글
 1. [[ubuntu] zshell - 1. Install](https://undol26.github.io/ubuntu/2020/10/03/ubuntu-zsh1.html)
 2. [[ubuntu] zshell - 2. Advantages (1)](https://undol26.github.io/ubuntu/2020/10/18/ubuntu-zsh2.html)
 3. [[ubuntu] zshell - 3. Advantages (2)](https://undol26.github.io/ubuntu/2020/10/19/ubuntu-zsh3.html)

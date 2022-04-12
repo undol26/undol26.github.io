@@ -100,9 +100,11 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 `zsh`의 장점은 [다음 편](https://undol26.github.io/ubuntu/2020/10/18/ubuntu-zsh2.html)에서 확인할 수 있다. 
 
-# 강력한 홍보글이다!!
+# <span style="color:#f92672">강력한 홍보글이다!!</span>
+<br>
 
-## 관련글.
+---
+## 관련글
 1. [[ubuntu] zshell - 1. Install](https://undol26.github.io/ubuntu/2020/10/03/ubuntu-zsh1.html)
 2. [[ubuntu] zshell - 2. Advantages (1)](https://undol26.github.io/ubuntu/2020/10/18/ubuntu-zsh2.html)
 3. [[ubuntu] zshell - 3. Advantages (2)](https://undol26.github.io/ubuntu/2020/10/19/ubuntu-zsh3.html)
