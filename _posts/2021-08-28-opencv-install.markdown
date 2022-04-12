@@ -6,13 +6,13 @@ category: opencv
 ---
 
 ## Intro.
-ubuntu 18.04에서 opencv 3.4.5를 설치하는 방식이다.
+`ubuntu 18.04`에서 `opencv 3.4.5`를 설치하는 방식이다.
 
-나는 ROS 를 쓰는데, 여기에 기본으로 <span style="color:#f92672">opencv 3.4.2</span>버전이 들어있다. 하지만 <span style="color:#f92672">opencv 3.4.5</span>버전 이상을 써야 할 때 강제로 이를 설치하는 방법이다.
+나는 ROS 를 쓰는데, 여기에 기본으로 `opencv 3.4.2`버전이 들어있다. 하지만 `opencv 3.4.5`버전 이상을 써야 할 때 강제로 이를 설치하는 방법이다.
 
 ## Install
-* warning 뜨는 것을 신경 쓰지 않는 방법을 추천함.
-* ROS Melodic full package 설치 시, <span style="color:#f92672">opencv 3.2.0</span>이 기본적으로 함께 설치됨.
+* warning 뜨는 것은 무시.
+* ROS Melodic full package 설치 시, `opencv 3.2.0`이 기본적으로 함께 설치됨.
 
 ```bash
 # update
@@ -70,7 +70,7 @@ pkg-config --modversion opencv
 ```
 
 ## 사용법.
-사용하려는 패키지의 CMAKELIST에 <span style="color:#f92672">find_package(OpenCV 3.4 REQUIRED)</span>를 명시함.
+사용하려는 패키지의 `CMAKELIST`에 `find_package(OpenCV 3.4 REQUIRED)`를 명시함.
 
 ex. 
 ```cmake
@@ -101,10 +101,11 @@ catkin_package(
  DEPENDS system_lib
 )
 ```
+<br><br>
 
-
+---
 ## Problem1. 만약 stitching 쪽에서 error가 뜬다면?
-opencv3.4.5 폴더에서
+`opencv3.4.5` directory에서
 
 ```bash
 rm -rf modules/stitching/
@@ -113,11 +114,11 @@ rm -rf modules/stitching/
 부분을 삭제
 
 ## Problem2. undefined reference ~~ aruco ~~~
-이런식으로 aruco 관련 패키지를 못찾는다면
+이런식으로 `aruco` 관련 패키지를 못찾는다면
 
-<span style="color:#f92672">opencv3.4.5/build/modules/</span>에 aruco 폴더가 존재하는지 확인.
+`opencv3.4.5/build/modules/`에 `aruco` directory가 존재하는지 확인.
 
-이 부분이 없다면 <span style="color:#f92672">build</span> 부분을 지우고, 위의 CMAKE를 다시 해서 생길 때까지 해야 한다.
+이 부분이 없다면 `build` 부분을 지우고, 위의 `CMAKE`를 생길 때까지 해야 한다.
 
 만약 계속 해도 안된다면 아래 커맨드로 해볼 것.
 
