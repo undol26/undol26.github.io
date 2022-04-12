@@ -5,17 +5,18 @@ date:   2022-03-29
 category: Debug
 ---
 
-undefined reference to symbol 은 cmake에서 뭔가를 missing 했을 때 일어나는 에러메시지이다.
+undefined reference to symbol 은 `CMakeList`에서 뭔가를 missing 했을 때 볼 수 있는 에러메시지이다.
 
 ```bash
 /usr/bin/ld: CMakeFiles/_test_node.dir/src/Test/Test.cpp.o: undefined reference to symbol '_ZN2tf17TransformListenerD1Ev'
 //opt/ros/melodic/lib/libtf.so: error adding symbols: DSO missing from command line
 ```
 
-CMake를 봐도 특별히 없는 게 없었다. 
-한 줄씩 지워가면서 확인을 해봤는데. 원인은 <span style="color:#f92672">PCL library</span> 이었다.
+`CMakeList`를 봐도 특별히 잘못된 게 없어 보였다. stack overflow에서도 제대로 검색이 안되고...
 
-내가 지금까지 관성적으로 사용하던 PCL은 <span style="color:#f92672">`find_package(PCL 1.2 REQUIRED)`</span> 이었는데, 이를 그냥 <span style="color:#f92672">pcl-ros</span>로 변경하니 해결되었다.
+그래서 한 줄씩 확인을 해봤더니 원인은 `PCL library` 이었다.
+
+내가 지금까지 사용하던 PCL은 `find_package(PCL 1.2 REQUIRED)` 이었는데, 이를 `pcl-ros`로 변경하니 해결되었다.
 
 
 ### 변경 전
