@@ -12,22 +12,25 @@ ROS에서 tf에 관한 내용을 총 4개의 글로 작성하려고 한다. 이 
 
 ### Definition
 > 좌표축을 변환한다는 것과, 좌표축 위의 점을 변환한다는 것은 반대(inverse)의 개념이다. 이를 바탕으로 아래 정의하는 네 가지는 모두 같은 표현이다. <br>
-> 1. A좌표축 → B좌표축으로 변환하는 행렬을 $R$이라고 정의한다. <br>
-> 2. B좌표축 위의 점 → A좌표축 위의 점으로 변환하는 행렬은 $R$로 정의된다. <br>
-> 3. B좌표축 → A좌표축으로 변환하는 행렬을 $R^{-1}$로 정의된다. <br>
-> 4. A좌표축 위의 점 → B좌표축 위의 점으로 변환하는 행렬은 $R^{-1}$로 정의된다.
+> 1. A좌표축 -> B좌표축으로 변환하는 행렬을 $R$이라고 정의한다. <br>
+> 2. B좌표축 위의 점 -> A좌표축 위의 점으로 변환하는 행렬은 $R$로 정의된다. <br>
+> 3. B좌표축 -> A좌표축으로 변환하는 행렬을 $R^{-1}$로 정의된다. <br>
+> 4. A좌표축 위의 점 -> B좌표축 위의 점으로 변환하는 행렬은 $R^{-1}$로 정의된다.
 
 ## urdf란?
 같은 센서 구성을 A패키지에서 정의할 때, B패키지에서 정의할 때 또는 C사람이 구현할 때, D사람이 구현할 때마다 저마다의 방법으로 구성 한다면 통일성도 없고, 매번 새로운 방법으로 구성될 수 있다. 
 
-하지만 ros에서 지원해주는 이 <span style="color:#f92672">urdf</span> 란 것을 이용하면, 어떤 프로그램, 누가 코드를 짜더라도 편하게 같은 방식으로 사용할 수 있다.
+하지만 ros에서 지원해주는 이 `urdf` 란 것을 이용하면, 어떤 프로그램, 누가 코드를 짜더라도 편하게 같은 방식으로 사용할 수 있다.
 
 urdf는 **Unified Robot Description Format**의 줄임말로써 **통합 로봇 설명 형식**으로 해석이 된다. 즉, 이 urdf 파일로 정의된 센서 구성을 프로그램에서 불러오면, 통합된 로봇 설명 형식으로써 모두가 같은 방법으로 센서 구성을 읽어올 수 있고 사용할 수 있게 된다.
 
 우리가 좌표축을 변환시키기 보다 센서로부터 얻는 데이터인 점(point cloud)을 가지고 무언가를 할 것이다. ros에서 지원하는 urdf를 사용하면 이를 쉽게 이용할 수 있다.
 
 ## Example
-나는 cyglidar와 realsense 두 개를 사용할 것이다. 이 때 각각의 센서는 다음과 같이 위치한다. 로봇 중심축(chassis_link)을 기준으로 cyglidar(laser_link)는 <span style="color:#f92672">[0.5, 0.15, 0.74]</span> 만큼 translation 되어있고, rotation은 없다. 중심축(chassis_link)을 기준으로 realsense(camera_depth_optical_frame)는 <span style="color:#f92672">[0.5, -0.15, 0.74]</span> 만큼 translation 되어있고, <span style="color:#f92672">[r=-1.57, p=0, y=-1.57]</span> 만큼 rotation 되어있다. 모든 단위는 meter, radian이다.
+나는 `cyglidar`와 `realsense` 두 개를 사용할 것이다. 이 때 각각의 센서는 다음과 같이 위치한다. 
+* 로봇 중심축 `chassis_link`을 기준으로 cyglidar `laser_link`는 $[0.5, 0.15, 0.74]$ 만큼 `translation` 되어있고, `rotation`은 없다. 
+* 로봇 중심축 `chassis_link`을 기준으로 realsense `camera_depth_optical_frame` 는 $[0.5, -0.15, 0.74]$ 만큼 `translation` 되어있고, $[r=-1.57, p=0, y=-1.57]$ 만큼 `rotation` 되어있다. 
+* 모든 단위는 `meter`, `radian`이다.
 
 <center>
 <figure>
@@ -40,16 +43,19 @@ urdf는 **Unified Robot Description Format**의 줄임말로써 **통합 로봇 
 </center>
 (RVIZ에서 x,y,z축을 쉽게 기억하는 방법은 RGB 순서를 기억하면 된다. R=X축, G=Y축, B=Z축이다!)
 
+<br>
 위와 같이 구성된 센서를 urdf 파일로 표현하려면 어떻게 해야 하는가?
 
-우리가 제일 먼저 접근해야 하는 정의는 <span style="color:#f92672">2번 정의</span> 이다. (데이터 (point cloud) 를 변환하기 때문에)
+우리가 제일 먼저 접근해야 하는 정의는 `2번 정의` 이다. (데이터 (point cloud) 를 변환하기 때문에)
 
-위의 정의에서 <span style="color:#f92672">A=로봇 중심축, B=카메라</span> 라고 생각하면, 카메라 축 위의 점을 로봇 중심축 위의 점으로 변환하는 행렬이 $R$이다. 
+위의 정의에서 `A=로봇 중심축`, `B=카메라` 라고 생각하면, 카메라 축 위의 점을 로봇 중심축 위의 점으로 변환하는 행렬이 $R$이다. 
 
-이는 다른 말로 표현하면 <span style="color:#f92672">1번 정의</span>에 의해 로봇 중심축을 카메라 축으로 변환하는 행렬이 $R$이다. 
+이는 다른 말로 표현하면 `1번 정의`에 의해 로봇 중심축을 카메라 축으로 변환하는 행렬이 $R$이다. 
 
-즉 보다 직관적으로 생각하려면 **"로봇 중심축(A)을 카메라 축(B)으로 translation, rotation하는 기하학적인 관계를 urdf에 적어주면 된다."** 고 생각하면 된다.
+<br>
+즉 보다 직관적으로 생각하려면 **"로봇 중심축(A, Parent, Source)을 카메라 축(B, Child, Target)으로 `translation`, `rotation`하는 기하학적인 관계를 `urdf`에 적어주면 된다."** 고 생각하면 된다.
 
+<br>
 urdf는 아래와 같이 작성한다.
 ```xml
 <?xml version="1.0" ?>
@@ -97,12 +103,12 @@ urdf는 아래와 같이 작성한다.
 </center>
 
 ### 1. link 또는 joint
-<span style="color:#f92672">link</span>는 쉽게 생각해서 하나의 센서가 운용되는 독립된 공간이라고 생각하면 된다. 만약 카메라를 사용한다면 카메라로부터 얻은 이미지가 표현되는 공간을 <span style="color:#f92672">link</span>로 생각할 수 있다. 만약 로봇팔이 움직인다면, 로봇팔 부분이 움직일 수 있는 공간을 link로 생각할 수 있다.
+`link`는 쉽게 생각해서 하나의 센서가 운용되는 독립된 공간이라고 생각하면 된다. 만약 카메라를 사용한다면 카메라로부터 얻은 이미지가 표현되는 공간을 `link`로 생각할 수 있다. 만약 로봇팔이 움직인다면, 로봇팔 부분이 움직일 수 있는 공간을 link로 생각할 수 있다.
 
-<span style="color:#f92672">joint</span>는 링크와 링크 사이에 연결된 부분으로 어떤 중심축(parent)으로부터 다른 축(child)간의 연결을 나타낸다. 그렇기 때문에 누가 중심 축인지, 중심축으로부터 얼만큼 translation, rotation이 있는지를 나타내야 한다. 위의 urdf예제에서 <span style="color:#f92672">origin rpy="-1.57 0 -1.57" xyz="0.5 -0.15 0.74"</span> 이 각각 rotation, translation을 나타낸다.
+`joint`는 링크와 링크 사이에 연결된 부분으로 어떤 중심축(parent)으로부터 다른 축(child)간의 연결을 나타낸다. 그렇기 때문에 누가 중심 축인지, 중심축으로부터 얼만큼 translation, rotation이 있는지를 나타내야 한다. 위의 urdf예제에서 `origin rpy="-1.57 0 -1.57" xyz="0.5 -0.15 0.74"` 이 각각 rotation, translation을 나타낸다.
 
 ### 2. parent, child
-말그대로 부모, 자식이다. 누가 더 윗사람인가. 누가 더 중심축인가. 나의 경우 사용하려는 두 센서(cyglidar, realsense)를 모두 로봇 중심축으로 옮겨놓고 사용할 것이다. 즉, 로봇의 중심이 중심축이므로 <span style="color:#f92672">chassis_link</span>가 <span style="color:#f92672">parenet</span>이다. cyglidar, realsense는 그러므로 <span style="color:#f92672">child</span>이다.
+말그대로 부모, 자식이다. 누가 더 윗사람인가. 누가 더 중심축인가. 나의 경우 사용하려는 두 센서(cyglidar, realsense)를 모두 로봇 중심축으로 옮겨놓고 사용할 것이다. 즉, 로봇의 중심이 중심축이므로 `chassis_link`가 `parenet`이다. cyglidar, realsense는 그러므로 `child`이다.
 
 
 만약 realsense camera를 cyglidar로 축이동을 시키고 싶다면 parent는 cyglidar, child는 realsense로 하면된다. 내가 축을 통일하고자 하는 곳에 parent, child를 적으면 된다.
@@ -139,7 +145,7 @@ header:
 ### 4. translation
 위에서 **즉, 로봇 중심축(A)을 카메라 축(B)으로 translation, rotation하는 기하학적인 관계를 urdf에 적어주면 된다.** 고 언급하였다. 여기서 A는 parent, B는 child가 되므로, 로봇 중심축을 잘 변환하여 카메라축과 일치시켜주면 된다. 
 
-나의 경우 parent축 기준으로 child는 앞으로(x축) 0.5m, 왼쪽으로(y축) -0.15m, 위로(z축) 0.74m 떨어져 있기 때문에 <span style="color:#f92672">[0.5, -0.15, 0.74]</span>이라 적는다.
+나의 경우 parent축 기준으로 child는 앞으로(x축) 0.5m, 왼쪽으로(y축) -0.15m, 위로(z축) 0.74m 떨어져 있기 때문에 `[0.5, -0.15, 0.74]`이라 적는다.
 
 ### 5. rotation
 translation을 했다면 다음은 rotation의 차례이다. 
@@ -151,7 +157,7 @@ translation을 했다면 다음은 rotation의 차례이다.
 </figure>
 </center>
 
-위의 그림과 같이 parent 의 Z축을 먼저 -90º 회전하고, 변환한 X축을 다시 -90º회전하면 child의 축과 같아진다. 이 때 회전순서는 반드시 <span style="color:#f92672">Z → Y → X 축 순서</span>로 회전을 해야 한다. 
+위의 그림과 같이 parent 의 Z축을 먼저 -90º 회전하고, 변환한 X축을 다시 -90º회전하면 child의 축과 같아진다. 이 때 회전순서는 반드시 `Z -> Y -> X 축 순서`로 회전을 해야 한다. 
 
 즉 $R=R_X(-90)R_Z(-90)$ 을 만족한다.
 
@@ -165,7 +171,7 @@ translation을 했다면 다음은 rotation의 차례이다.
 
 그림 왼쪽에서와 같이 urdf로 부터 얻은 $-\theta$만큼 X축에서 회전변환을 하고, 그림 가운데서와 같이 변환후 이동한 Z축에서 $-theta$만큼 회전변환을 하면 그림 오른쪽에서와 같이 최종 lidar축과 일치한 회전축 변환이 된다. 
 
-이 때 회전순서는 반드시 <span style="color:#f92672">X → Y → Z 축 순서</span>로 회전을 해야 한다. (matrix 곱형태로는 반대로 $R_Z * R_Y * R_X * P$ 순서가 될것이다.) 
+이 때 회전순서는 반드시 `X -> Y -> Z 축 순서`로 회전을 해야 한다. (matrix 곱형태로는 반대로 $R_Z * R_Y * R_X * P$ 순서가 될것이다.) 
 
 이 때 R matrix는 다음과 같다.
 
@@ -178,14 +184,14 @@ $R = R_Z(90) \times R_Y(0) \times R_X(90) \\
 
  $R^{-1} = (R_{Z}(90)R_X(90))^{-1}=R_X^{-1}(90)R_Z^{-1}(90)=R_X(-90)R_Z(-90)$
 
- 즉, translation과 같이 <span style="color:#f92672">1번 정의</span>에 따라 parent의 축을 Z축으로 -90도 변환하고, 변환한 parent의 새 X축으로 -90도 변환하면 $R^{-1}$이 구해지므로, urdf에는 rpy순서에 라디안으로 변환한 값을 각각 -1.57, 0, -1.57을 적으면 된다.
+ 즉, translation과 같이 `1번 정의`에 따라 parent의 축을 Z축으로 -90도 변환하고, 변환한 parent의 새 X축으로 -90도 변환하면 $R^{-1}$이 구해지므로, urdf에는 rpy순서에 라디안으로 변환한 값을 각각 -1.57, 0, -1.57을 적으면 된다.
 
- urdf에서 구하는 것은 <span style="color:#f92672">4번 정의</span>에 따라 <span style="color:#f92672">$R^{-1}$</span> 라고 했는데 정말 그러한지는 다음 포스팅에서 코드를 작성하고, 결과 값을 비교해보면서 확인해보도록 하자. -->
+ urdf에서 구하는 것은 `4번 정의`에 따라 `$R^{-1}$` 라고 했는데 정말 그러한지는 다음 포스팅에서 코드를 작성하고, 결과 값을 비교해보면서 확인해보도록 하자. -->
 
 ## 결론
 다시 정리하면, 
 1. parent, child 관계를 잘 정립한다.
-2. urdf에 입력할 기하학적인 관계는 직관적인 <span style="color:#f92672">1번 정의</span>를 이용하여 <span style="color:#f92672">parent</span> 좌표축을 변환시켜서 <span style="color:#f92672">child</span> 좌표축으로 translation, rotation하는 기하학적인 관계를 rpy,xyz에 맞춰서 적으면 된다.
+2. urdf에 입력할 기하학적인 관계는 직관적인 `1번 정의`를 이용하여 `parent` 좌표축을 변환시켜서 `child` 좌표축으로 translation, rotation하는 기하학적인 관계를 rpy,xyz에 맞춰서 적으면 된다.
 
 
 ## 출처.
@@ -196,6 +202,3 @@ $R = R_Z(90) \times R_Y(0) \times R_X(90) \\
 ## 관련글.
 1. [[ROS] TF(transform) - 1. Prerequisite](https://undol26.github.io/ros/2022/03/29/ros-tf1.html)
 2. [[ROS] TF(transform) - 2. Using urdf in ROS](https://undol26.github.io/ros/2022/04/07/ros-tf2.html)
-
----
-`이것은 코드블락 테스트`

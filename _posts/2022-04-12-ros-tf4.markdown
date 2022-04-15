@@ -1,0 +1,84 @@
+---
+layout: post
+title:  "[ROS] TF(transform) - 4. Explain with Example"
+date:   2022-04-12
+category: ROS
+---
+
+## Intro.
+ROS에서 tf에 관한 내용을 총 네 개의 글로 작성하려고 한다. 이 글은 그 중 네 번째인 예제를 통한 자세한 유도 과정을 나타낸 글이다. 
+
+이번엔 urdf 없이 직접적으로 계산을 한 것과, 그 계산한 것을 코드에 넣었을 때 변환이 잘 되는지를 확인하려고 한다.
+
+<br>
+첫 번째 글에서 계속 설명하던 정의를 다시 적으면 아래와 같다.
+> 1. A좌표축 -> B좌표축으로 변환하는 행렬을 $R$ 이라고 정의한다.
+> 2. B좌표축 위의 점 -> A좌표축 위의 점으로 변환하는 행렬은 $R$ 로 정의된다.
+> 3. B좌표축 -> A좌표축으로 변환하는 행렬을 $R^{-1}$ 로 정의된다.
+> 4. A좌표축 위의 점 -> B좌표축 위의 점으로 변환하는 행렬은 $R^{-1}$ 로 정의된다.
+
+## 센서 구성
+![alt text](/public/img/ros/ros-tf4-1.png)
+
+* 사용하는 센서는 `LDS`, `Camera` 두 개이다. 
+  * urdf개념으로 설명하면 LDS는 `child`, Camera는 `parent`가 된다.
+* `LDS`는 로봇의 왼쪽 모서리에 45º만큼 틀어져서 설치되어있다.
+* `LDS` 축에서 바라본 $P$ 점은 $P_L$이고, `camera` 축에서 바라본 $P$ 점은 $P_C$이다.
+* urdf에서처럼 `Camera`축의 원점에서 `LDS` 축의 원점 까지를 (translation) $P_0$로 정의한다.
+* `LDS`축 위의 점 -> `camera` 축 위의 점으로 변환하는 것이 목표이다. (`2번 정의`)
+* `LDS`의 좌표축 -> `caemera` 좌표축으로 회전시키는 행렬은 $R^{-1}$ 이다. (`3번 정의`)
+
+## non-homogeneous form
+### step1. Translation
+![alt text](/public/img/ros/ros-tf4-2.png)  
+
+* 먼저 위 그림과 같이 `LDS` 축 위에서 바라본 점들을 회전 변환 없이 그대로 $P_0$만큼 `camera`축으로 `translation`만 한다. 
+* translation후 새로운 좌표축에서 점 $P$를 바라본 벡터를 $P_{L'}$이라고 하자. 이를 벡터합의 형태로 표현하면 다음과 같다.
+  * $P_{L'}=P_L+P_0$ 
+
+### stpe2. Rotation
+![alt text](/public/img/ros/ros-tf4-3.png)  
+
+#### Rotation in z-direction
+`LDS`축의 Z축을 기준으로 -135º 회전한다.
+
+`LDS`축을 `Camera`축으로 변환하는 것은 `3번 정의`에 해당되기 때문에 $R^{-1}_Z(-135)=R_Z(135)$를 만족한다.
+
+#### Rotation in (updated) x-direction
+변환된 새로운 X축을 기준으로 -90º 회전한다.
+역시 `3번 정의`에 의해서 $R^{-1}_X(-90)=R_X(90)$ 을 만족한다.
+
+### Overall Equation
+결국 이를 모두 종합하면 다음과 같은 식을 만족한다.
+
+$P_C=R^{-1}P_{L'}=R^{-1}_X(-90)R^{-1}_Z(-135)(P_L+P_0)=R_X(90)R_Z(135)(P_L+P_0)$   ....................... (1)
+
+<br>
+$R^{-1} = R^{-1}_X(-90)R^{-1}_Z(-135) = R_X(90)R_Z(135)$
+
+$ =\begin{bmatrix} 1 & 0 & 0 \cr 0 & cos(90) & -sin(90) \cr 0 & sin(90) & cos(90) \end{bmatrix}  \begin{bmatrix} cos(135) & -sin(135) & 0 \cr sin(135) & cos(135) & 0 \cr 0 & 0 & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 \cr 0 & 0 & -1 \cr 0 & 1 & 0 \end{bmatrix} \begin{bmatrix} -1/\sqrt2 & -1/\sqrt2 & 0 \cr 1/\sqrt2 & -1/\sqrt2 & 0 \cr 0 & 0 & 1 \end{bmatrix} = \begin{bmatrix} -1/\sqrt2 & -1/\sqrt2 & 0 \cr 0 & 0 & -1 \cr 1/\sqrt2 & -1/\sqrt2 & 0 \end{bmatrix}$ 
+
+## homogeneous form
+위 Overall Equation의 (1)에서 정의한 식을 homogeneous form으로 바꾸면 다음과 같다.
+
+$ \begin{bmatrix} P_C \cr 1 \end{bmatrix} = \begin{bmatrix} R^{-1} & T \cr 0 & 1 \end{bmatrix} = \begin{bmatrix} P_L \cr 1 \end{bmatrix}$  (where $T =P_0$)
+
+## Implement code
+```c++
+pcl::PointCloud<pcl::PointXYZI>::Ptr DockingStationRecognizer::convertLds2Camera(const pcl::PointCloud<pcl::PointXYZI> pclCloud)
+{
+	pcl::PointCloud<pcl::PointXYZI>::Ptr transformedPclCloud(new pcl::PointCloud<pcl::PointXYZI>);
+
+	// X축 90도 회전 * Z축 135도 회전
+	cv::Mat m_cameraPosition3dMat = cu.RotationX(90) * cu.RotationZ(135);
+
+	Eigen::Matrix4f trans;
+	trans 
+
+
+}
+
+```
+
+
+- [http://wiki.ros.org/tf/Tutorials/Writing a tf listener (C++)](http://wiki.ros.org/tf/Tutorials/Writing%20a%20tf%20listener%20%28C%2B%2B%29)

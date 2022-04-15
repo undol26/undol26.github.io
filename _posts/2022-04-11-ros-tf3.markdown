@@ -51,9 +51,9 @@ ROS에서 tf에 관한 내용을 총 4개의 글로 작성하려고 한다. 이 
 3. 구현한 값이 맞는지 어떻게 확인하는가?
 
 ## 코드 구현.
-<span style="color:#f92672">cyglidar link</span> → <span style="color:#f92672">chassis_link</span> 로 변환하는 것이나 <span style="color:#f92672">realsense link</span> → <span style="color:#f92672">chassis_link</span>는 결국 같은 개념이다.
+`cyglidar link` -> `chassis_link` 로 변환하는 것이나 `realsense link` -> `chassis_link`는 결국 같은 개념이다.
 
-따라서 축 변환이 들어가 조금 더 복잡한 <span style="color:#f92672">realsense link</span> → <span style="color:#f92672">chassis_link</span> 변환의 예제만 작성한다.
+따라서 축 변환이 들어가 조금 더 복잡한 `realsense link` -> `chassis_link` 변환의 예제만 작성한다.
 
 ```cpp
 // listener를 사용하기 위해 해더를 포함해준다.
