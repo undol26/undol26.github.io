@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[ROS] TF(transform) - 4. Explain with Example"
+title:  "[ROS] TF(transform) - 4. Explain with an Example"
 date:   2022-04-12
 category: ROS
 ---
@@ -64,21 +64,40 @@ $ =\begin{bmatrix} 1 & 0 & 0 \cr 0 & cos(90) & -sin(90) \cr 0 & sin(90) & cos(90
 $ \begin{bmatrix} P_C \cr 1 \end{bmatrix} = \begin{bmatrix} R^{-1} & T \cr 0 & 1 \end{bmatrix} = \begin{bmatrix} P_L \cr 1 \end{bmatrix}$  (where $T =P_0$)
 
 ## Implement code
-```c++
-pcl::PointCloud<pcl::PointXYZI>::Ptr DockingStationRecognizer::convertLds2Camera(const pcl::PointCloud<pcl::PointXYZI> pclCloud)
+```cpp
+pcl::PointCloud<pcl::PointXYZI>::Ptr DockingStationRecognizer::convertLds2Camera(
+    const pcl::PointCloud<pcl::PointXYZI> pclCloud)
 {
-	pcl::PointCloud<pcl::PointXYZI>::Ptr transformedPclCloud(new pcl::PointCloud<pcl::PointXYZI>);
+    pcl::PointCloud<pcl::PointXYZI>::Ptr transformedPclCloud(new pcl::PointCloud<pcl::PointXYZI>());
+	// R^{-1} = X축 90도 회전 * Z축 135도 회전 (위 설명)
+    cv::Mat m_cameraPosition3DMat = cu.RotationX(90) * cu.RotationZ(135);
 
-	// X축 90도 회전 * Z축 135도 회전
-	cv::Mat m_cameraPosition3dMat = cu.RotationX(90) * cu.RotationZ(135);
+	// m_distanceFromCamToLds: cam 에서 Lds까지의 translation (위 설명의 P_0)
+    Eigen::Matrix4f trans;
+    trans << m_cameraPosition3DMat.at<float>(0, 0), m_cameraPosition3DMat.at<float>(0, 1),
+        m_cameraPosition3DMat.at<float>(0, 2), m_distanceFromCamToLds(0),
+        m_cameraPosition3DMat.at<float>(1, 0), m_cameraPosition3DMat.at<float>(1, 1),
+        m_cameraPosition3DMat.at<float>(1, 2), m_distanceFromCamToLds(1),
+        m_cameraPosition3DMat.at<float>(2, 0), m_cameraPosition3DMat.at<float>(2, 1),
+        m_cameraPosition3DMat.at<float>(2, 2), m_distanceFromCamToLds(2), 0, 0, 0, 1;
 
-	Eigen::Matrix4f trans;
-	trans 
+    pcl::transformPointCloud(pclCloud, *transformedPclCloud, trans);
 
-
+    return transformedPclCloud;
 }
 
 ```
 
+## 결론
+다시 정리하면, 
+1. `3번 정의`를 이용하여 기하학적인 관계 변화를 직접 Eigen::Matrix4f trans에 넣음으로써 회전변환을 쉽게 할 수 있다.
 
-- [http://wiki.ros.org/tf/Tutorials/Writing a tf listener (C++)](http://wiki.ros.org/tf/Tutorials/Writing%20a%20tf%20listener%20%28C%2B%2B%29)
+## 출처.
+- [https://pcl.readthedocs.io/projects/tutorials/en/latest/matrix_transform.html#matrix-transform](https://pcl.readthedocs.io/projects/tutorials/en/latest/matrix_transform.html#matrix-transform)
+
+---
+## 관련글.
+1. [[ROS] TF(transform) - 1. Prerequisite](https://undol26.github.io/ros/2022/03/29/ros-tf1.html)
+2. [[ROS] TF(transform) - 2. Using urdf in ROS](https://undol26.github.io/ros/2022/04/07/ros-tf2.html)
+3. [[ROS] TF(transform) - 3. Implement TF Using urdf in ROS](https://undol26.github.io/ros/2022/04/11/ros-tf3.html)
+4. [[ROS] TF(transform) - 4. Explain with an Example](https://undol26.github.io/ros/2022/04/12/ros-tf4.html)

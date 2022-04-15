@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[ROS] Implement tf of ROS in c++"
+title:  "[ROS] TF(transform) - 3. Implement TF Using urdf in ROS"
 date:   2022-04-11
 category: ROS
 ---
@@ -46,14 +46,12 @@ ROS에서 tf에 관한 내용을 총 4개의 글로 작성하려고 한다. 이 
 ```
 
 우리의 목표는
-1. 각 센서축 (cyglidar, realsense link)을 기준으로 얻은 점들을 로봇 중심 축 (chassis_link)로 옮길 것이다.
+1. 각 센서축 (cyglidar, realsense link)을 기준으로 얻은 점들을 로봇 중심 축 `chassis_link`로 옮길 것이다.
 2. 실제 코드에서 어떻게 구현하는가?
 3. 구현한 값이 맞는지 어떻게 확인하는가?
 
 ## 코드 구현.
-`cyglidar link` -> `chassis_link` 로 변환하는 것이나 `realsense link` -> `chassis_link`는 결국 같은 개념이다.
-
-따라서 축 변환이 들어가 조금 더 복잡한 `realsense link` -> `chassis_link` 변환의 예제만 작성한다.
+`realsense link` -> `chassis_link` 변환의 예제만 작성한다. (`cyglidar link` -> `chassis_link` 로 변환하는 것은 비슷한 개념이므로)
 
 ```cpp
 // listener를 사용하기 위해 해더를 포함해준다.
@@ -68,25 +66,26 @@ tf::StampedTransform m_Camera2BaseTF;
 
 try {
         Listener.waitForTransform(m_BaseTF_Name, m_CameraTF_Name, ros::Time(0), ros::Duration(1.5));
-        Listener.lookupTransform(m_BaseTF_Name, m_CameraTF_Name, ros::Time(0), Src2BaseTF);
+        Listener.lookupTransform(m_BaseTF_Name, m_CameraTF_Name, ros::Time(0), transform);
     }
 catch (tf::TransformException ex) {
         ROS_ERROR("%s",ex.what());
         ros::Duration(1.0).sleep();
 }
 
-double TranslateX = Src2BaseTF.getOrigin().getX();
-double TranslateY = Src2BaseTF.getOrigin().getY();
-double TranslateZ = Src2BaseTF.getOrigin().getZ();
+double TranslateX = transform.getOrigin().getX();
+double TranslateY = transform.getOrigin().getY();
+double TranslateZ = transform.getOrigin().getZ();
+std::cout << "aaaaaaaaaaaaaaaaaa" << std::endl;
 std::cout << "TranslateX: " << TranslateX << std::endl;
 std::cout << "TranslateY: " << TranslateY << std::endl;
-std::cout << "TranslateZ: " << TranslateZ << std::endl;
+std::cout << "TranslateZ: " << TranslateZ << std::endl << std::endl;
 
-tf::Quaternion q = Src2BaseTF.getRotation();
+tf::Quaternion q = transform.getRotation();
 std::cout << "qx: " << q.x() << std::endl;
 std::cout << "qy: " << q.y() << std::endl;
 std::cout << "qz: " << q.z() << std::endl;
-std::cout << "qw: " << q.w() << std::endl << std::endl;
+std::cout << "qw: " << q.w() << std::endl << std::endl << std::endl;
 
 tf::Matrix3x3 m(q);
 double roll, pitch, yaw;
@@ -94,14 +93,82 @@ m.getRPY(roll, pitch, yaw);
 std::cout << "roll: " << roll << std::endl;
 std::cout << "pitch: " << pitch << std::endl;
 std::cout << "yaw: " << yaw << std::endl;
+std::cout << "aaaaaaaaaaaaaaaaaa" << std::endl;
+
+tf::Vector3 origin = transform.getOrigin();
+tf::Matrix3x3 rotMatrix(transform.getRotation());
+
+std::cout << "bbbbbbbb" << std::endl;
+std::cout << "rotMatrix" << std::endl;
+std::cout << rotMatrix[0].getX() << ", " << rotMatrix[0].getY() << ", " << rotMatrix[0].getZ() << std::endl;
+std::cout << rotMatrix[1].getX() << ", " << rotMatrix[1].getY() << ", " << rotMatrix[1].getZ() << std::endl;
+std::cout << rotMatrix[2].getX() << ", " << rotMatrix[2].getY() << ", " << rotMatrix[2].getZ() << std::endl << std::endl;
+
+std::cout << "origin" << std::endl;
+std::cout << origin.getX() << std::endl;
+std::cout << origin.getY() << std::endl;
+std::cout << origin.getZ() << std::endl;
+std::cout << "bbbbbbbb" << std::endl;
+
+Eigen::Matrix4d transfromMatrixD;
+// rotMatrix[0].getX(), rotMatrix[0].getY(), rotMatrix[0].getZ(), origin.getX(),
+// rotMatrix[1].getX(), rotMatrix[1].getY(), rotMatrix[1].getZ(), origin.getY(),
+// rotMatrix[2].getX(), rotMatrix[2].getY(), rotMatrix[2].getZ(), origin.getZ(),
+// 0.0, 0.0, 0.0, 1.0;
+transfromMatrixD << rotMatrix[0].getX(), rotMatrix[0].getY(), rotMatrix[0].getZ(),
+    origin.getX(), rotMatrix[1].getX(), rotMatrix[1].getY(), rotMatrix[1].getZ(),
+    origin.getY(), rotMatrix[2].getX(), rotMatrix[2].getY(), rotMatrix[2].getZ(),
+    origin.getZ(), 0.0, 0.0, 0.0, 1.0;
+m_DepthCamTransformMatrix = transfromMatrixD.cast<float>();
+
+pcl::transformPointCloud(pclCloud, pclCloudTF, m_DepthCamTransformMatrix);
 ```
 
 값을 확인하면 다음과 같다.
+```bash
+aaaaaaaaaaaaaaaaaa
+TranslateX: 0.5
+TranslateY: -0.15
+TranslateZ: 0.74
 
-<img src="/public/img/ros/ros-tf1.png" alt=""/> 
+qx: -0.5
+qy: 0.499602
+qz: -0.5
+qw: 0.500398
 
-`base` 축 기준으로 `lidar`는 (0.5,0.3,0.5), `realsense`는 (0.5, -0.3, 0.5)에 있었다.
-`lidar`를 `base`로 옮기기 위해서는 `base`를 기준으로 (m_LidarTranslateX, m_LidarTranslateY, m_LidarTranslateZ) = (-0.5, -0.3, -0.5) 만큼 `이동(translate)`해야 한다. 카메라도 마찬가지.
+roll: -1.57
+pitch: -2.22045e-16
+yaw: -1.57
+aaaaaaaaaaaaaaaaaa
 
+bbbbbbbb
+rotMatrix
+0.000796327, 0.000796326, 0.999999
+-1, 6.34136e-07, 0.000796326
+2.22045e-16, -1, 0.000796327
 
-- [http://wiki.ros.org/tf/Tutorials/Writing a tf listener (C++)](http://wiki.ros.org/tf/Tutorials/Writing%20a%20tf%20listener%20%28C%2B%2B%29)
+origin
+0.5
+-0.15
+0.74
+bbbbbbbb
+```
+
+`origin`를 보면 각각 $[0.5, -0.15, 0.74]$로 urdf에서 정의한 `parent`축을 기준으로 `child`까지의 translation 임을 확인할 수 있다.
+
+`rotMatrix`를 다시 적으면 다음과 같다.
+
+$R = \begin{bmatrix} 0 & 0 & 1 \cr -1 & 0 & 0 \cr 0 & -1 & 0 \end{bmatrix}$
+
+<br>
+이는 [2번 포스트](https://undol26.github.io/ros/2022/04/07/ros-tf2.html)에서 `3번 정의`로 구한 `child`축을 기준으로 `parent`축으로 회전한 $R^{-1}$축임을 알 수 있다.
+
+<br>
+여기서 구한 rotMatrix, origin을 homogeneous form으로 바꾼 `Eigen::Matrix4d transfromMatrixD`에 대입 후, pcl의 `transformPointCloud` 함수를 이용하면 `2번 정의`의 `child`축에서 바라본 점을 `parent`축에서 바라본 점으로 변환할 수 있다.
+
+---
+## 관련글.
+1. [[ROS] TF(transform) - 1. Prerequisite](https://undol26.github.io/ros/2022/03/29/ros-tf1.html)
+2. [[ROS] TF(transform) - 2. Using urdf in ROS](https://undol26.github.io/ros/2022/04/07/ros-tf2.html)
+3. [[ROS] TF(transform) - 3. Implement TF Using urdf in ROS](https://undol26.github.io/ros/2022/04/11/ros-tf3.html)
+4. [[ROS] TF(transform) - 4. Explain with an Example](https://undol26.github.io/ros/2022/04/12/ros-tf4.html)

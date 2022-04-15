@@ -43,14 +43,14 @@ ROS에서 tf에 관한 내용을 총 네 개의 글로 작성하려고 한다. �
 
 위 1번 정의에서와 같이, $A$좌표축을 $B$좌표축으로 변환하려면 +($\theta$) 만큼 회전하면 된다. 다시말해 B좌표축은 A좌표축 기준 +($\theta$)만큼 틀어져 있다. 이 회전 변환 행렬 $R$을 다음과 같이 정의한다.
 
-$ R_\theta =  \begin{bmatrix} cos(\theta) & -sin(\theta) \cr sin(\theta) & cos(\theta) \end{bmatrix} $
+$ R(\theta) =  \begin{bmatrix} cos(\theta) & -sin(\theta) \cr sin(\theta) & cos(\theta) \end{bmatrix} $
 
 <br>
 임의의 벡터 $P$는 좌표축 위의 점이기 때문에, `위 4번 정의`에 해당한다. 따라서 우리가 구하려고 하는 A좌표축에서 바라본 점 $P_A$를 B좌표축에서 바라본 점 $P_B$로 변환하려면 위 4번 정의에 따라 $R^{-1}$를 적용해야 한다. $R$ matrix는 orthonormal하기 때문에 다음의 관계가 성립한다.
 
-$ R_{\theta} ^{-1} = R_{\theta} ^{T} = \begin{bmatrix} cos(\theta) & sin(\theta) 
+$ R^{-1}(\theta) = R^{T}(\theta) = \begin{bmatrix} cos(\theta) & sin(\theta) 
 \cr -sin(\theta) & cos(\theta) \end{bmatrix} = \begin{bmatrix} cos(-\theta) & -sin(-\theta) 
-\cr sin(-\theta) & cos(-\theta) \end{bmatrix} = R_{(-\theta)}$
+\cr sin(-\theta) & cos(-\theta) \end{bmatrix} = R(-\theta)$
 
 ## 예제
 1. 위의 그림 2에서 $B$좌표축은 $A$좌표축을 기준으로 $\theta=+45º$ 만큼 회전해있다. (`위 1번 정의`) <br> 
@@ -58,13 +58,13 @@ $ R_{\theta} ^{-1} = R_{\theta} ^{T} = \begin{bmatrix} cos(\theta) & sin(\theta)
 
 점 $P_B$는 `위 2번 정의`에 의해 다음과 같이 $P_A$로 변환한다.
 
-$P_A = R_{\theta} P_B = \begin{bmatrix} cos(\theta) & -sin(\theta) \cr sin(\theta) & cos(\theta) \end{bmatrix} P_B = \begin{bmatrix} 1/\sqrt2 & -1/\sqrt2 \cr 1/\sqrt2 & 1/\sqrt2 \end{bmatrix} \begin{bmatrix} \sqrt2 \cr 0 \end{bmatrix} = \begin{bmatrix} 1 \cr 1 \end{bmatrix}$
+$P_A = R(\theta) P_B = \begin{bmatrix} cos(\theta) & -sin(\theta) \cr sin(\theta) & cos(\theta) \end{bmatrix} P_B = \begin{bmatrix} 1/\sqrt2 & -1/\sqrt2 \cr 1/\sqrt2 & 1/\sqrt2 \end{bmatrix} \begin{bmatrix} \sqrt2 \cr 0 \end{bmatrix} = \begin{bmatrix} 1 \cr 1 \end{bmatrix}$
 
 <br>
 
 점 $P_A$는 `위 4번 정의`에 의해 다음과 같이 $P_B$로 변환한다.
 
-$P_B = R_{-\theta} P_A = \begin{bmatrix} cos(-\theta) & -sin(-\theta) \cr sin(-\theta) & cos(-\theta) \end{bmatrix} P_A = \begin{bmatrix} 1/\sqrt2 & 1/\sqrt2 \cr -1/\sqrt2 & 1/\sqrt2 \end{bmatrix} \begin{bmatrix} 1 \cr 1 \end{bmatrix} = \begin{bmatrix} \sqrt2 \cr 0 \end{bmatrix}$
+$P_B = R(-\theta) P_A = \begin{bmatrix} cos(-\theta) & -sin(-\theta) \cr sin(-\theta) & cos(-\theta) \end{bmatrix} P_A = \begin{bmatrix} 1/\sqrt2 & 1/\sqrt2 \cr -1/\sqrt2 & 1/\sqrt2 \end{bmatrix} \begin{bmatrix} 1 \cr 1 \end{bmatrix} = \begin{bmatrix} \sqrt2 \cr 0 \end{bmatrix}$
 
 
 ## 결론
@@ -83,3 +83,5 @@ $P_B = R_{-\theta} P_A = \begin{bmatrix} cos(-\theta) & -sin(-\theta) \cr sin(-\
 ## 관련글.
 1. [[ROS] TF(transform) - 1. Prerequisite](https://undol26.github.io/ros/2022/03/29/ros-tf1.html)
 2. [[ROS] TF(transform) - 2. Using urdf in ROS](https://undol26.github.io/ros/2022/04/07/ros-tf2.html)
+3. [[ROS] TF(transform) - 3. Implement TF Using urdf in ROS](https://undol26.github.io/ros/2022/04/11/ros-tf3.html)
+4. [[ROS] TF(transform) - 4. Explain with an Example](https://undol26.github.io/ros/2022/04/12/ros-tf4.html)

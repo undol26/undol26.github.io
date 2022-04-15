@@ -24,13 +24,17 @@ ROS에서 tf에 관한 내용을 총 4개의 글로 작성하려고 한다. 이 
 
 urdf는 **Unified Robot Description Format**의 줄임말로써 **통합 로봇 설명 형식**으로 해석이 된다. 즉, 이 urdf 파일로 정의된 센서 구성을 프로그램에서 불러오면, 통합된 로봇 설명 형식으로써 모두가 같은 방법으로 센서 구성을 읽어올 수 있고 사용할 수 있게 된다.
 
-우리가 좌표축을 변환시키기 보다 센서로부터 얻는 데이터인 점(point cloud)을 가지고 무언가를 할 것이다. ros에서 지원하는 urdf를 사용하면 이를 쉽게 이용할 수 있다.
+ros에서 지원하는 urdf를 사용하면 이를 쉽게 이용할 수 있다.
 
 ## Example
 나는 `cyglidar`와 `realsense` 두 개를 사용할 것이다. 이 때 각각의 센서는 다음과 같이 위치한다. 
 * 로봇 중심축 `chassis_link`을 기준으로 cyglidar `laser_link`는 $[0.5, 0.15, 0.74]$ 만큼 `translation` 되어있고, `rotation`은 없다. 
 * 로봇 중심축 `chassis_link`을 기준으로 realsense `camera_depth_optical_frame` 는 $[0.5, -0.15, 0.74]$ 만큼 `translation` 되어있고, $[r=-1.57, p=0, y=-1.57]$ 만큼 `rotation` 되어있다. 
 * 모든 단위는 `meter`, `radian`이다.
+* 위의 정의에서 `A=로봇 중심축`, `B=카메라`이다. 
+  * 즉, `카메라` 축 위의 점을 `로봇 중심`축 위의 점으로 변환하는 행렬이 $R$이다. (`2번 정의`)
+  * 즉, `카메라` 축을 `로봇 중심`축으로 변환하는 행렬은 이 $R^{-1}$이다. (`3번 정의`)
+
 
 <center>
 <figure>
@@ -46,14 +50,13 @@ urdf는 **Unified Robot Description Format**의 줄임말로써 **통합 로봇 
 <br>
 위와 같이 구성된 센서를 urdf 파일로 표현하려면 어떻게 해야 하는가?
 
-우리가 제일 먼저 접근해야 하는 정의는 `2번 정의` 이다. (데이터 (point cloud) 를 변환하기 때문에)
-
-위의 정의에서 `A=로봇 중심축`, `B=카메라` 라고 생각하면, 카메라 축 위의 점을 로봇 중심축 위의 점으로 변환하는 행렬이 $R$이다. 
-
-이는 다른 말로 표현하면 `1번 정의`에 의해 로봇 중심축을 카메라 축으로 변환하는 행렬이 $R$이다. 
+* 우리가 제일 먼저 사용해야 하는 정의는 `2번 정의` 이다. 
+  * 우리가 사용하는 것은 축이 아닌 점(PCD)이기 때문이다.
+* 하지만 이를 urdf에 적용하려면 `1번 정의` 또는 `3번 정의`를 사용하는 것이 편하다.
+  * `2번 정의`에서 정한 $R$이나 `1번 정의`에서 정한 $R$은 같고, `3번 정의`에서 정한 $R^{-1}$ 또한 같기 때문이다.
 
 <br>
-즉 보다 직관적으로 생각하려면 **"로봇 중심축(A, Parent, Source)을 카메라 축(B, Child, Target)으로 `translation`, `rotation`하는 기하학적인 관계를 `urdf`에 적어주면 된다."** 고 생각하면 된다.
+즉, 요약하면 <span style="color:#f92672">로봇 중심축(A, `parent`, Source)을 기준으로 카메라 축(B, `child`, Target)으로 `translation`, `rotation`하는 기하학적인 관계를 `urdf`에 적어주면 된다.</span> 이다.
 
 <br>
 urdf는 아래와 같이 작성한다.
@@ -110,7 +113,6 @@ urdf는 아래와 같이 작성한다.
 ### 2. parent, child
 말그대로 부모, 자식이다. 누가 더 윗사람인가. 누가 더 중심축인가. 나의 경우 사용하려는 두 센서(cyglidar, realsense)를 모두 로봇 중심축으로 옮겨놓고 사용할 것이다. 즉, 로봇의 중심이 중심축이므로 `chassis_link`가 `parenet`이다. cyglidar, realsense는 그러므로 `child`이다.
 
-
 만약 realsense camera를 cyglidar로 축이동을 시키고 싶다면 parent는 cyglidar, child는 realsense로 하면된다. 내가 축을 통일하고자 하는 곳에 parent, child를 적으면 된다.
 
 ### 3. link name
@@ -150,6 +152,7 @@ header:
 ### 5. rotation
 translation을 했다면 다음은 rotation의 차례이다. 
 
+#### `3번 정의`를 이용하여 rotation
 <center>
 <figure>
     <img src="/public/img/ros/ros-tf2-coord_change.png" alt=""> 
@@ -157,36 +160,41 @@ translation을 했다면 다음은 rotation의 차례이다.
 </figure>
 </center>
 
-위의 그림과 같이 parent 의 Z축을 먼저 -90º 회전하고, 변환한 X축을 다시 -90º회전하면 child의 축과 같아진다. 이 때 회전순서는 반드시 `Z -> Y -> X 축 순서`로 회전을 해야 한다. 
+위의 그림과 같이 `child` 의 X축을 먼저 90º 회전하고, 변환한 Z축을 다시 90º회전하면 `parent`의 축과 같아진다. 
 
-즉 $R=R_X(-90)R_Z(-90)$ 을 만족한다.
+이 때 회전순서는 어떤 축을 먼저 회전했을 때 제대로 회전하는지 확인 후 적는다. 이 경우 회전 순서는 `X -> Y -> Z 축 순서` 이다. 
 
-이렇게 구한 관계를 urdf에 넣고 코드를 돌렸을 때 원하는 결과가 제대로 나오는 것은 3번 글에서 이어가도록 하겠다. 
+즉,
 
+$R^{-1}=R_Z^{-1}(90)R_Y^{-1}(0)R_Z^{-1}(90) = R_Z(-90)R_X(-90)$
 
-<!-- $R$ matrix는 $R^{-1} = R^T=R_{-\theta}$를 만족하고, 이는 1번 정의에 해당하는 말이다. 이는 또 다른 말로 child축을 parent축으로 변환하는 방법이다. 이는 또 다른 말로 urdf에서 정한 theta에 $-1$을 곱한 만큼($-\theta$)을 회전 변환해주면 좌표축을 회전할 수 있다. 이를 그림으로 표현하면 다음과 같다.
+$=\begin{bmatrix} cos(-90) & -sin(-90) & 0 \cr sin(-90) & cos(-90) & 0 \cr 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \cr 0 & cos(-90) & -sin(-90) \cr 0 & sin(-90) & cos(-90) \end{bmatrix}= \begin{bmatrix} 0 & 1 & 0 \cr -1 & 0 & 0 \cr 0 & 0 & 1 \end{bmatrix}\begin{bmatrix} 1 & 0 & 0 \cr 0 & 0 & 1 \cr 0 & -1 & 0 \end{bmatrix} = \begin{bmatrix} 0 & 0 & 1 \cr -1 & 0 & 0 \cr 0 & -1 & 0 \end{bmatrix}$ 
 
+이다.
 
-언제나 기준은 변환하려고 하는 child 축이다.
+#### `1번 정의`를 이용하여 rotation
+<center>
+<figure>
+    <img src="/public/img/ros/ros-tf2-coord_change.png" alt=""> 
+	<figcaption>Fig3. - Coordinate Changes.</figcaption>
+</figure>
+</center>
 
-그림 왼쪽에서와 같이 urdf로 부터 얻은 $-\theta$만큼 X축에서 회전변환을 하고, 그림 가운데서와 같이 변환후 이동한 Z축에서 $-theta$만큼 회전변환을 하면 그림 오른쪽에서와 같이 최종 lidar축과 일치한 회전축 변환이 된다. 
+위의 그림과 같이 `parent` 의 Z축을 먼저 -90º 회전하고, 변환한 X축을 다시 -90º회전하면 child의 축과 같아진다. 
 
-이 때 회전순서는 반드시 `X -> Y -> Z 축 순서`로 회전을 해야 한다. (matrix 곱형태로는 반대로 $R_Z * R_Y * R_X * P$ 순서가 될것이다.) 
+이 때 회전순서는 어떤 축을 먼저 회전했을 때 제대로 회전하는지 확인 후 적는다. 이 경우 회전 순서는 `Z -> Y -> X 축 순서` 이다. 
 
-이 때 R matrix는 다음과 같다.
+즉,
 
-$R = R_Z(90) \times R_Y(0) \times R_X(90) \\
- = \begin{bmatrix} cos(90) & -sin(90) & 0 \cr sin(90) & cos(90) & 0 \cr 0 & 0 & 1 \end{bmatrix} \times \begin{bmatrix} 1 & 0 & 0 \cr 0 & cos(90) & -sin(90) \cr 0 & sin(90) & cos(90) \end{bmatrix} \\ = \begin{bmatrix} 0 & -1 & 0 \cr 1 & 0 & 0 \cr 0 & 0 & 1 \end{bmatrix} \times \begin{bmatrix} 1 & 0 & 0 \cr 0 & 0 & -1 \cr 0 & 1 & 0 \end{bmatrix} = \begin{bmatrix} 0 & 0 & 1 \cr 1 & 0 & 0 \cr 0 & 1 & 0 \end{bmatrix}$ 이 된다.
+$R=R_X^{-1}(-90)R_Y^{-1}(0)R_Z^{-1}(-90) = R_X(90)R_Z(90)$
 
- $R^{-1} = R^{T} = \begin{bmatrix} 0 & 1 & 0 \cr 0 & 0 & 1 \cr 1 & 0 & 0 \end{bmatrix}$
+$=\begin{bmatrix} 1 & 0 & 0 \cr 0 & cos(90) & -sin(90) \cr 0 & sin(90) & cos(90) \end{bmatrix} \begin{bmatrix} cos(90) & -sin(90) & 0 \cr sin(90) & cos(90) & 0 \cr 0 & 0 & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 \cr 0 & 0 & -1 \cr 0 & 1 & 0 \end{bmatrix}\begin{bmatrix} 0 & -1 & 0 \cr 1 & 0 & 0 \cr 0 & 0 & 1 \end{bmatrix} = \begin{bmatrix} 0 & -1 & 0 \cr 0 & 0 & -1 \cr 1 & 0 & 0 \end{bmatrix}$ 
 
- 이는 수학적으로 다음과 같은 증명 과정을 거친다.
+이다.
 
- $R^{-1} = (R_{Z}(90)R_X(90))^{-1}=R_X^{-1}(90)R_Z^{-1}(90)=R_X(-90)R_Z(-90)$
+urdf에서 구하는 rotation은 $R$일까? $R^{-1}$일까?
 
- 즉, translation과 같이 `1번 정의`에 따라 parent의 축을 Z축으로 -90도 변환하고, 변환한 parent의 새 X축으로 -90도 변환하면 $R^{-1}$이 구해지므로, urdf에는 rpy순서에 라디안으로 변환한 값을 각각 -1.57, 0, -1.57을 적으면 된다.
-
- urdf에서 구하는 것은 `4번 정의`에 따라 `$R^{-1}$` 라고 했는데 정말 그러한지는 다음 포스팅에서 코드를 작성하고, 결과 값을 비교해보면서 확인해보도록 하자. -->
+정답은 3편에서 확인할 수 있다!
 
 ## 결론
 다시 정리하면, 
@@ -202,3 +210,5 @@ $R = R_Z(90) \times R_Y(0) \times R_X(90) \\
 ## 관련글.
 1. [[ROS] TF(transform) - 1. Prerequisite](https://undol26.github.io/ros/2022/03/29/ros-tf1.html)
 2. [[ROS] TF(transform) - 2. Using urdf in ROS](https://undol26.github.io/ros/2022/04/07/ros-tf2.html)
+3. [[ROS] TF(transform) - 3. Implement TF Using urdf in ROS](https://undol26.github.io/ros/2022/04/11/ros-tf3.html)
+4. [[ROS] TF(transform) - 4. Explain with an Example](https://undol26.github.io/ros/2022/04/12/ros-tf4.html)
