@@ -166,6 +166,9 @@ $R = \begin{bmatrix} 0 & 0 & 1 \cr -1 & 0 & 0 \cr 0 & -1 & 0 \end{bmatrix}$
 <br>
 여기서 구한 rotMatrix, origin을 homogeneous form으로 바꾼 `Eigen::Matrix4d transfromMatrixD`에 대입 후, pcl의 `transformPointCloud` 함수를 이용하면 `2번 정의`의 `child`축에서 바라본 점을 `parent`축에서 바라본 점으로 변환할 수 있다.
 
+<br>
+homogeneous form에 대한 설명은 [4편](https://undol26.github.io/ros/2022/04/12/ros-tf4.html)에서 확인할 수 있다!
+
 ---
 ## 관련글.
 1. [[ROS] TF(transform) - 1. Prerequisite](https://undol26.github.io/ros/2022/03/29/ros-tf1.html)
