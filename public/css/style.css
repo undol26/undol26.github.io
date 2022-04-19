@@ -65,7 +65,7 @@ a:hover {
 	text-decoration: underline;
 }
 
-pre {
+/* pre {
 	display: block;
 	overflow: auto;
 	margin-bottom: 15px;
@@ -74,7 +74,7 @@ pre {
 	line-height: 1.2;
 }
 
-code {  /* 인라인/블럭 코드 */
+code {  
 	font-family: "Menlo", "Consolas", monospace;
 	font-size: 0.8em;
 	margin: 0px;
@@ -82,6 +82,37 @@ code {  /* 인라인/블럭 코드 */
 	border-radius: 4px;
 	background-color: #272822; 
 	color: whitesmoke;
+} */
+pre {
+	display: block;
+	padding: 9.5px;
+	margin: 0 0 10px;
+	font-size: 13px;
+	line-height: 1.42857143;
+	color: #333;
+	word-break: break-all;
+	word-wrap: break-word;
+	background-color: #f5f5f5;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+  }
+  pre code {
+	padding: 0;
+	font-size: inherit;
+	color: inherit;
+	white-space: pre-wrap;
+	background-color: transparent;
+	border-radius: 0;
+  }
+
+code {
+	font-family: "Menlo", "Consolas", monospace;
+	font-size: 0.8em;
+	margin: 0px;
+	padding: 2px;
+	border-radius: 4px;
+	color: #c7254e;
+	background-color: #f9f2f4;
 }
 
 .container {
