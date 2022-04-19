@@ -1,0 +1,51 @@
+---
+layout: post
+title:  "[PCL] undefined reference to `pcl::visualization::PCLVisualizer::PCLVisualizer"
+date:   2022-03-29
+category: PCL
+---
+
+## Intro.
+undefined reference to symbol 은 `CMakeList`에서 뭔가를 missing 했을 때 볼 수 있는 에러메시지이다.
+
+```bash
+/floor_ws/devel/lib/libtwinny_costmap_floor.so: undefined reference to `pcl::visualization::PCLVisualizer::PCLVisualizer(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool)'
+/floor_ws/devel/lib/libtwinny_costmap_floor.so: undefined reference to `pcl::visualization::PCLVisualizer::allocVtkPolyData(vtkSmartPointer<vtkPolyData>&)'
+/floor_ws/devel/lib/libtwinny_costmap_floor.so: undefined reference to `pcl::visualization::PCLVisualizer::updateCells(vtkSmartPointer<vtkIdTypeArray>&, vtkSmartPointer<vtkIdTypeArray>&, long long)'
+/floor_ws/devel/lib/libtwinny_costmap_floor.so: undefined reference to `pcl::visualization::PointCloudGeometryHandlerXYZ<pcl::PointXYZRGB>::PointCloudGeometryHandlerXYZ(boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> const> const&)'
+/floor_ws/devel/lib/libtwinny_costmap_floor.so: undefined reference to `pcl::visualization::PCLVisualizer::addActorToRenderer(vtkSmartPointer<vtkProp> const&, int)'
+/floor_ws/devel/lib/libtwinny_costmap_floor.so: undefined reference to `pcl::visualization::PCLVisualizer::convertToVtkMatrix(Eigen::Matrix<float, 4, 1, 0, 4, 1> const&, Eigen::Quaternion<float, 0> const&, vtkSmartPointer<vtkMatrix4x4>&)'
+/floor_ws/devel/lib/libtwinny_costmap_floor.so: undefined reference to `pcl::visualization::PointCloudGeometryHandlerXYZ<pcl::PointXYZRGB>::getGeometry(vtkSmartPointer<vtkPoints>&) const'
+/floor_ws/devel/lib/libtwinny_costmap_floor.so: undefined reference to `pcl::visualization::PCLVisualizer::~PCLVisualizer()'
+/floor_ws/devel/lib/libtwinny_costmap_floor.so: undefined reference to `pcl::visualization::PCLVisualizer::createActorFromVTKDataSet(vtkSmartPointer<vtkDataSet> const&, vtkSmartPointer<vtkLODActor>&, bool)'
+collect2: error: ld returned 1 exit status
+twinny_costmap_floor/CMakeFiles/twinny_costmap_floor_test_node.dir/build.make:602: recipe for target '/floor_ws/devel/lib/twinny_costmap_floor/twinny_costmap_floor_test_node' failed
+make[2]: *** [/floor_ws/devel/lib/twinny_costmap_floor/twinny_costmap_floor_test_node] Error 1
+CMakeFiles/Makefile2:6351: recipe for target 'twinny_costmap_floor/CMakeFiles/twinny_costmap_floor_test_node.dir/all' failed
+make[1]: *** [twinny_costmap_floor/CMakeFiles/twinny_costmap_floor_test_node.dir/all] Error 2
+Makefile:140: recipe for target 'all' failed
+make: *** [all] Error 2
+Invoking "make -j16 -l16" failed
+```
+
+## 해결책
+`CMakeList`의 `target_link_libraries`에 `pcl_visualization`을 추가하면 된다.
+
+```cmake
+...
+중략
+...
+target_link_libraries(${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+  ${EIGEN3_LIBRARIES}
+  yaml-cpp
+  pcl_visualization
+)
+...
+중략
+...
+```
+
+## 출처.
+- [https://answers.ros.org/question/365559/error-undefined-reference-to-pclvisualizationpclvisualizercreateactorfromvtkdataset/](https://answers.ros.org/question/365559/error-undefined-reference-to-pclvisualizationpclvisualizercreateactorfromvtkdataset/)

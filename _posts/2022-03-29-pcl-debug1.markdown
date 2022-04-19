@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "[Debug] PCL - undefined reference to symbol '_ZN2tf17TransformListenerD1Ev']?"
+title:  "[PCL] undefined reference to symbol '_ZN2tf17TransformListenerD1Ev']"
 date:   2022-03-29
-category: Debug
+category: PCL
 ---
 
 undefined reference to symbol 은 `CMakeList`에서 뭔가를 missing 했을 때 볼 수 있는 에러메시지이다.
