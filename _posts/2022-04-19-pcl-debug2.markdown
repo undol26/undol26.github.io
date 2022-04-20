@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[PCL] undefined reference to `pcl::visualization::PCLVisualizer::PCLVisualizer"
-date:   2022-03-29
+date:   2022-04-19
 category: PCL
 ---
 
