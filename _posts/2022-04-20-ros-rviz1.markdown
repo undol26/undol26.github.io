@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "[ROS] RVIZ - Execute with predefined config file"
+date:   2022-04-20
+category: ROS
+---
+
+## Intro.
+`RVIZ`를 통해 디버깅을 하고 있다. custom하게 생성한 토픽, fixed frame name등 매번 킬 때마다 새로 추가해주는게 귀찮아서 config 파일을 저장해서 관리한다.
+
+하지만 이 마저도 rviz를 키면 항상 default option이 불리기 때문에 매번 open config 또는 recent configs를 이용해서 여는데 이마저도 매우 불편하다.
+
+<br>
+한번에 사전에 저장한 cofnig 파일을 열 수 있지 않을까?
+
+## 해결책
+```bash
+rosrun rviz rviz -d `rospack find ${YOUR_PACKAGE_NAME}`/YOUR/CONFIG/FILENAME
+# ex rosrun rviz rviz -d `rospack find costmap_floor`/config/debug.rviz
+```
+
+## 출처.
+- [https://answers.ros.org/question/287670/run-rviz-with-configuration-file-from-launch-file/](https://answers.ros.org/question/287670/run-rviz-with-configuration-file-from-launch-file/)
