@@ -15,14 +15,14 @@ ros callback에 대한 정리이다.
 `queue`의 개념처럼 queue에 쌓인 callback 값을 내보내는 느낌으로 접근하면 된다.
 
 <br> 
-역시 자세한 튜토리얼은 [reference](wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning)에 소개되어 있고, 개념만 정리하려 한다.
+역시 자세한 튜토리얼은 [reference](https://wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning)에 소개되어 있고, 개념만 정리하려 한다.
 
 ## callAvailable()  v.s. callbackOne()
 callbackqueue에서 사용할 수 있는 method는 크게 2개로 정리할 수 있다.
 
 `callAvailable()`  v.s. `callbackOne()`
 
-[함수에 대한 설명](docs.ros.org/en/api/roscpp/html/classros_1_1CallbackQueue.html)을 보면 
+[함수에 대한 설명](https://docs.ros.org/en/api/roscpp/html/classros_1_1CallbackQueue.html)을 보면 
 
 * `callAvailable()`: 현재 대기열에 있는 모든 콜백을 호출한다.
 * `callbackOne()`: 대기열 앞에 단일 콜백을 팝하고 호출한다.
@@ -43,9 +43,9 @@ callbackqueue에서 사용할 수 있는 method는 크게 2개로 정리할 수 
 ```
 
 ## 출처.
-- [wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning](wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning)
-- [docs.ros.org/en/api/roscpp/html/classros_1_1CallbackQueue.html](docs.ros.org/en/api/roscpp/html/classros_1_1CallbackQueue.html)
-- [levelup.gitconnected.com/ros-spinning-threading-queuing-aac9c0a793f](levelup.gitconnected.com/ros-spinning-threading-queuing-aac9c0a793f)
+- [wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning](https://wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning)
+- [docs.ros.org/en/api/roscpp/html/classros_1_1CallbackQueue.html](https://docs.ros.org/en/api/roscpp/html/classros_1_1CallbackQueue.html)
+- [levelup.gitconnected.com/ros-spinning-threading-queuing-aac9c0a793f](https://levelup.gitconnected.com/ros-spinning-threading-queuing-aac9c0a793f)
 
 ---
 ## 관련글.

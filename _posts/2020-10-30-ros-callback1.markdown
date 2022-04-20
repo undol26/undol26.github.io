@@ -8,7 +8,7 @@ category: ROS
 ## Intro.
 ros callback에 대한 정리이다.
 
-자세한 튜토리얼은 [reference](wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning)에 소개되어 있고, 개념만 정리하려 한다.
+자세한 튜토리얼은 [reference](https://wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning)에 소개되어 있고, 개념만 정리하려 한다.
 
 ## roscpp spin - single thread
 ```cpp
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 다음 포스팅은 `custom callback queue`를 이용해서 `asyncspinner`를 적용하는 글을 포스팅 할 예정이다.
 
 ## 출처.
-- [wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning](wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning)
+- [wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning](https://wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning)
 
 ---
 ## 관련글.
