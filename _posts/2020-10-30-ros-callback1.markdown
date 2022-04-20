@@ -10,7 +10,7 @@ ros callback에 대한 정리이다.
 
 자세한 튜토리얼은 [reference](https://wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning)에 소개되어 있고, 개념만 정리하려 한다.
 
-## roscpp spin - single thread
+## roscpp single thread - spin
 ```cpp
 ros::spin()
 ```
@@ -27,8 +27,18 @@ single thread이기 때문에 여러 callback 함수가 있을 때, 한 callback
 <br>
 **이를 해결 하려면? `asyncspinner`를 사용해야 한다.**
 
-## roscpp AsyncSpinner
-asyncspinner는 `threaded spinner`이다. 다시말해, 각각의 callback 함수가 하나의 thread를 가진다. 이를 또 다시 말하면, 위에서와 달리, 한 콜백 함수가 실행되고 있어도, 다른 쓰레드에서의 콜백 함수는 실행이 가능하다.
+## roscpp multi threads - AsyncSpinner
+ROS는 기본적으로 `ros::MultiThreadedSpinner` 또는 `ros::AsyncSpinner`와 같은 `multi-thread`를 지원한다.
+
+[reference](https://wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning)에서 ROS에서는 `AsyncSpinner`가 더 유용하며 이를 사용하는 것을 권한다.
+
+ROS에서 사용되는 thread로는 `subscriber`, `timer`, `service server`등 이 있다. (단 `publisher`, `service client` 들은 그냥 객체이다.)
+
+<br>
+우리는 ROS의 기본 기능을 사용함으로써 (`subscriber` 등) 자연스럽게 `multi-thread` 프로그래밍을 하고 있었다!
+
+<br>
+asyncspinner는 `threaded spinner`이다. 다시말해, 각각의 callback 함수가 하나의 thread를 가지는 객체이다. ([reference](http://docs.ros.org/en/api/roscpp/html/classros_1_1AsyncSpinner.html) 이를 또 다시 말하면, `single thread`에서와 달리, 한 콜백 함수가 실행되고 있어도, 다른 쓰레드에서의 콜백 함수는 실행이 가능하다.
 
 이를 사용하려면, 
 ```cpp
@@ -57,7 +67,8 @@ int main(int argc, char **argv)
 다음 포스팅은 `custom callback queue`를 이용해서 `asyncspinner`를 적용하는 글을 포스팅 할 예정이다.
 
 ## 출처.
-- [wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning](https://wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning)
+- [https://wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning](https://wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning)
+- [http://docs.ros.org/en/api/roscpp/html/classros_1_1AsyncSpinner.html](http://docs.ros.org/en/api/roscpp/html/classros_1_1AsyncSpinner.html)
 
 ---
 ## 관련글.
