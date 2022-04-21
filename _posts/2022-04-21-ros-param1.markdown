@@ -1,0 +1,116 @@
+---
+layout: post
+title:  "[ROS] Parameter - 1. Manage with command and source file"
+date:   2022-04-21
+category: ROS
+---
+
+## Intro.
+`ROS`로 프로그램을 개발하다 보면 많은 파라미터를 사용하게 된다. 이 시리즈는 파라미터를 효과적으로 사용하는 방법들을 소개한다.
+
+이번 편은 `터미널 창` 또는 `소스 파일`에서 직접 파라미터를 읽거나 쓰는 방법을 소개한다.
+
+## method in terminal
+가장 많이 사용하는 기본적인 명령어는 다음과 같다.
+
+- `rosparam list`: ros parameter server에 있는 list를 조회한다. (`read`)
+- `rosparam get`: ros parameter server의 주소(`key`)에 있는 값(`value`)를 읽는다. (`read`)
+- `rosparam set`: ros parameter server의 주소(`key`)에 값(`value`)를 쓴다. (`write`)
+- `rosparam delete`: ros parameter server의 주소(`key`) 및 값(`value`)를 지운다. (`delete`)
+- `rosparam dump`: ros parameter server에 있는 모든 rosparam list를 파일로 쓴다. (`save`)
+- `rosparam load`: ros parameter server에 사전에 가지고 있는 파일의 값을 불러온다. (`load`)
+
+#### 예제
+```bash
+➜  ~ rosparam list
+/rosdistro
+/roslaunch/uris/host_desktop_undolcompany__37351
+/rosversion
+/run_id
+➜  ~ rosparam set test/t 3
+➜  ~ rosparam list
+/rosdistro
+/roslaunch/uris/host_desktop_undolcompany__37351
+/rosversion
+/run_id
+/test/t
+➜  ~ rosparam get test/t
+3
+➜  ~ rosparam dump bb.yaml
+➜  ~ rosparam delete /test/t
+➜  ~ rosparam list
+/rosdistro
+/roslaunch/uris/host_desktop_undolcompany__37351
+/rosversion
+/run_id
+➜  ~ rosparam load bb.yaml
+➜  ~ rosparam list
+/rosdistro
+/roslaunch/uris/host_desktop_undolcompany__37351
+/rosversion
+/run_id
+/test/t
+➜  ~ rosparam get /test/t
+3
+```
+
+## method in source code
+예제를 통해서 설명한다.
+
+### get params
+#### using nodehandle
+
+```cpp
+ros::NodeHandle nh;
+
+std::string global_name, relative_name, default_param;
+if (nh.getParam("/global_name", global_name)) {
+  ...
+}
+
+if (nh.getParam("relative_name", relative_name)) {
+...
+}
+
+// Default value version
+nh.param<std::string>("default_param", default_param, "default_value");
+```
+
+나머지는 너무 명시적이어서 따로 설명할 게 없다. 
+
+주목할 만한 것은 맨 마지막 줄의 `nh.param<std::string>("default_param", default_param, "default_value");` 이다.
+
+해석하면 
+1. ros parameter server에 `"default_param"`의 이름(`key`)이 존재하는가?
+2. 해당 `key`가 있으면 `true`를 반환하고, 그 값(`value`)를 `default_param`에 넣는다.
+3. 해당 `key`가 없으면 `false`를 반환하고, 내가 따로 정의한 `default_value`를 `default_param`에 넣는다.
+
+코드에서 `getParam()`을 쓰는 것보다 위의 `.param`을 쓰는 것이 더 안정적이다. 
+
+만약 누군가 실수로 `key`값에 오타를 냈거나, 없는 `key`값이면 `getParam()`은 바로 `false`를 반환하면서 값을 읽어올 수 없기 때문이다.
+
+#### not using nodehandle
+```cpp
+std::string global_name, relative_name, default_param;
+if (ros::param::get("/global_name", global_name)) {
+  ...
+}
+
+if (ros::param::get("relative_name", relative_name)) {
+...
+}
+
+// Default value version
+ros::param::param<std::string>("default_param", default_param, "default_value");
+```
+
+그 외의 `setParam()`, `hasParam()`, `deleteParam()`, `searchParam()` 은 위의 예시와 같이 쉽게 사용할 수 있기 때문에 설명을 생략한다. [reference](http://wiki.ros.org/roscpp/Overview/Parameter%20Server)를 참조하면 된다.
+
+## 출처.
+- [http://wiki.ros.org/roslaunch/XML/rosparam](http://wiki.ros.org/roslaunch/XML/rosparam)
+- [http://wiki.ros.org/roscpp/Overview/Parameter%20Server](http://wiki.ros.org/roscpp/Overview/Parameter%20Server)
+
+## 관련글.
+1. [[ROS] Parameter - 1. Manage with command and source file](https://undol26.github.io/ros/2022/04/21/ros-param1.html)
+2. [[ROS] Parameter - 2. Manage with launch file](https://undol26.github.io/ros/2022/04/22/ros-param2.html)
+3. [[ROS] Parameter - 3. Manage with YAML file](https://undol26.github.io/ros/2022/04/23/ros-param3.html)

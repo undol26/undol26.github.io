@@ -1,0 +1,58 @@
+---
+layout: post
+title:  "[ROS] Parameter - 3. Manage with YAML file"
+date:   2022-04-23
+category: ROS
+---
+
+## Intro.
+`ROS`로 프로그램을 개발하다 보면 많은 파라미터를 사용하게 된다. 이 때 이 파라미터를 단순히 변수로 선언해서 값을 초기화 해주면, 그 값이 바뀔 때 마다 `catkin_make`를 해줘야 하는 큰 불편함이 있다.
+
+이는 ros에서 제공하는 `parameter`를 이용하면 매번 `catkin_make` 하지 않고 간단히 변경할 수 있다.
+
+## method
+다음과 같은 `YAML`파일이 `${MY_PACKAGE}/config/my_params.yaml"`에 있다고 가정하자.
+
+```yaml
+text: "Hello"
+number_int: 42
+number_float: 21.3
+enable_boolean: true
+list_of_elements:
+    - 1
+    - 2
+    - 3
+    - 4
+dictionary: {
+    another_text: "World",
+    another_number: 12,
+}
+```
+
+<br>
+이 `YAML`파일을 `launch` 파일에서 로드하면 된다.
+```bash
+<launch>
+    <rosparam file="$(find MY_PACKAGE)/config/my_params.yaml" />
+</launch>
+```
+
+<br>
+그리고 해당 source 파일에는 다음과 같은 방식으로 `ros param`의 값을 읽을 수 있다.
+
+```cpp
+ros::NodeHandle nodeHandler;
+
+int intParam;
+nh.getParam("number_int", intParam);
+```
+
+## 출처.
+- [http://wiki.ros.org/roscpp/Overview/Parameter%20Server](http://wiki.ros.org/roscpp/Overview/Parameter%20Server)
+- [http://wiki.ros.org/roslaunch/XML/rosparam](http://wiki.ros.org/roslaunch/XML/rosparam)
+- [https://roboticsbackend.com/ros-param-yaml-format/](https://roboticsbackend.com/ros-param-yaml-format/)
+
+## 관련글.
+1. [[ROS] Parameter - 1. Manage with command and source file](https://undol26.github.io/ros/2022/04/21/ros-param1.html)
+2. [[ROS] Parameter - 2. Manage with launch file](https://undol26.github.io/ros/2022/04/22/ros-param2.html)
+3. [[ROS] Parameter - 3. Manage with YAML file](https://undol26.github.io/ros/2022/04/23/ros-param3.html)

@@ -1,0 +1,60 @@
+---
+layout: post
+title:  "[ROS] Parameter - 2. Manage with launch file"
+date:   2022-04-22
+category: ROS
+---
+
+## Intro.
+이번 편은 `launch`파일로 직접 param 값을 넣어주는 경우이다. 
+
+터미널에서 해당 `args`를 바로 줄 수 있다는 장점이 있다. 역시 마찬가지로 매번 `catkin_make` 하지 않고 간단히 변경할 수 있다.
+
+## method
+launch 파일을 예를들면 다음과 같다.
+
+<br>
+```bash
+<launch>
+  <arg name="gridmap_size"      default="0.25"/>
+  <arg name="lidar_topic_name"  default="/scan_3D"/>
+  <arg name="max_test_count"    default="1"/>
+  <arg name="is_once"           default="true"/>
+
+  <node pkg="my_custom_package" type="my_custom_package_test_node" name="my_custom_package_test_node" output="screen" >
+    <param name="MyParams/GridmapSize"          type="double" value="$(arg gridmap_size)"/>
+    <param name="MyParams/LidarTopic"           type="str"    value="$(arg lidar_topic_name)"/>
+    <param name="MyParams/debug/max_test_count" type="int"    value="$(arg max_test_count)"/>
+    <param name="MyParams/debug/is_once"        type="bool"   value="$(arg is_once)"/>
+    
+  </node> 
+ </launch>
+```
+
+### 설명
+- `arg name="gridmap_size"`: 터미널 창에서 입력할 `arg_name`이다. 
+- `default="0.25"`: 기본 값이다. 터미널 창에 아무 입력을 안했을 때 기본으로 0.25의 값이 들어간다.
+
+  이 경우 
+  ```bash
+  roslaunch my_custom_package my_custom_package gridmap_size:=0.3
+  ```
+  와 같이 내가 정의한 `arg_name`을 바로 적을 수 있다. `arg_name`은 터미널 창에서 `roslaunch my_custom_package my_custom_package`를 적고 `tab`키를 누르면 `arg_listt`를 볼 수 있고 선택할 수 있다.
+
+- `param name="MyParams/GridmapSize"`: ros parameter server에 올라갈 이름이다. 
+
+  즉, 
+  ```bash
+  rosparam list
+  ```
+  를 하면 `MyParams/GridmapSize`와 같은 이름이 검색된다.
+- `type="double"`: parameter의 type이다. type은 `str`, `int`, `double`, `bool`, `yaml`이 가능하다.
+- `value="$(arg gridmap_size)"`: parameter에 입력할 값이다. 이 때 위에서 정의한 `arg` 값을 넣어주려면 `arg name`과 같은 이름을 적는다.
+
+## 출처.
+- [http://wiki.ros.org/roslaunch/XML/rosparam](http://wiki.ros.org/roslaunch/XML/rosparam)
+
+## 관련글.
+1. [[ROS] Parameter - 1. Manage with command and source file](https://undol26.github.io/ros/2022/04/21/ros-param1.html)
+2. [[ROS] Parameter - 2. Manage with launch file](https://undol26.github.io/ros/2022/04/22/ros-param2.html)
+3. [[ROS] Parameter - 3. Manage with YAML file](https://undol26.github.io/ros/2022/04/23/ros-param3.html)
