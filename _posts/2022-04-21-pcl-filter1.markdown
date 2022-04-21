@@ -1,0 +1,83 @@
+---
+layout: post
+title:  "[PCL] Removing outliers using a ConditionalRemoval filter"
+date:   2022-04-21
+category: PCL
+---
+
+## Intro.
+ConditionalRemoval filter를 사용하는데 너무 삽질을 많이 했다. 누군가에게 도움이 되길 바라며.
+
+## 사용법
+간략한 사용법은 [reference](https://pcl.readthedocs.io/projects/tutorials/en/latest/conditional_removal.html#conditional-removal)를 보면 된다.
+
+그 중 나는 `PointNormal`로 정의한 ptr을 filter하려고 한다. (`PointXYZ`와 같이 원하는 templete을 넣으면 된다.)
+
+```cpp
+    // Build the condition for filtering
+    pcl::ConditionAnd<pcl::PointNormal>::Ptr range_cond(new pcl::ConditionAnd<pcl::PointNormal>());
+
+    // condition
+    range_cond->addComparison(pcl::FieldComparison<pcl::PointNormal>::ConstPtr(
+        new pcl::FieldComparison<pcl::PointNormal>("z", pcl::ComparisonOps::GT, -2)));
+    range_cond->addComparison(pcl::FieldComparison<pcl::PointNormal>::ConstPtr(
+        new pcl::FieldComparison<pcl::PointNormal>("z", pcl::ComparisonOps::LT, 0.1)));
+
+    // Build the filter
+    pcl::ConditionalRemoval<pcl::PointNormal> condrem;
+    condrem.setCondition(range_cond);
+    condrem.setInputCloud(doncloud); //doncloud: input cloud
+```
+
+<br>
+
+### FieldComparison() option
+conditional_removal.h 설명을 보면 참으로 불친절하게 설명이 되어 있다. 그래서 삽질해가며 찾은 옵션들이다.
+```cpp
+pcl::FieldComparison<PointT>::FieldComparison (
+    std::string field_name, ComparisonOps::CompareOp op, double compare_val) 
+  : ComparisonBase<PointT> ()
+  , compare_val_ (compare_val), point_data_ (NULL)
+{
+  // ...
+  // 중략
+  // ...
+}
+```
+
+1. field_name
+  * filter하고 싶은 `field_name`이다. 가능한 옵션은 다음과 같다.
+  * `x`, `y`, `z`, `normal_x`, `normal_y`, `normal_z`, `curvature` 이다.
+    * $curvature = \sqrt{normal_x^2 + normal_y^2+normal_z^2}$
+2. op_
+  * `GT`: greather than, 초과
+  * `GE`: greater equal than (?), 이상
+  * `LT`: lower than, 미만
+  * `LE`: lower equal than (?), 이하
+  * `EQ`: equal, 같음
+3. compare_val
+  * 원하는 값이다.
+
+즉 위의 코드를 해석하면 다음과 같다.
+pcd의 `z` 값으로 filtering을 할건데, -2초과 0.1이하의 값들만 사용하겠다. 이 때 range_cond를 만들 때 `ConditionAnd`로 한 것에 주목해야 한다. `ConditionAnd`는 말그대로 교집합이다. 눈치 빠른 사람은 알았을텐데 `ConditionOr` (합집합) 또한 가능하다. 
+
+~~이 `And` `Or`이 바로 눈에 안보여서 한참을 삽질했다.. 아오.~~
+
+## 결과
+이렇게 filtering을 해보면 결과는 다음과 같다.
+
+#### point 개수
+```bash
+cloud size: 354036
+filtered_cloud size: 113910
+```
+
+point의 개수가 input대비 줄어 든 것을 확인할 수 있다. 위의 option대로 -2m ~ 0.1m 이하의 값들만 filtered_cloud에 저장이 되었다.
+
+이를 그림으로 표현하면 다음과 같다.
+
+![alt text](/public/img/pcl/pcl-filter1.png) 
+
+## 출처.
+- [https://pcl.readthedocs.io/projects/tutorials/en/latest/conditional_removal.html#conditional-removal](https://pcl.readthedocs.io/projects/tutorials/en/latest/conditional_removal.html#conditional-removal)
+- [https://pointclouds.org/documentation/classpcl_1_1_conditional_removal.html](https://pointclouds.org/documentation/classpcl_1_1_conditional_removal.html)
