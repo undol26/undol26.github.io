@@ -37,7 +37,7 @@ launch 파일을 예를들면 다음과 같다.
 
   이 경우 
   ```bash
-  roslaunch my_custom_package my_custom_package gridmap_size:=0.3
+  roslaunch my_custom_package my_custom_package.launch gridmap_size:=0.3
   ```
   와 같이 내가 정의한 `arg_name`을 바로 적을 수 있다. `arg_name`은 터미널 창에서 `roslaunch my_custom_package my_custom_package`를 적고 `tab`키를 누르면 `arg_listt`를 볼 수 있고 선택할 수 있다.
 
