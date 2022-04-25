@@ -8,7 +8,7 @@ category: ROS
 ## Intro.
 `ROS`로 프로그램을 개발하다 보면 많은 파라미터를 사용하게 된다. 이 때 이 파라미터를 단순히 변수로 선언해서 값을 초기화 해주면, 그 값이 바뀔 때 마다 `catkin_make`를 해줘야 하는 큰 불편함이 있다.
 
-이는 ros에서 제공하는 `parameter`를 이용하면 매번 `catkin_make` 하지 않고 간단히 변경할 수 있다.
+이는 `ROS`에서 제공하는 `parameter`를 이용하면 매번 `catkin_make` 하지 않고 간단히 변경할 수 있다.
 
 ## method
 다음과 같은 `YAML`파일이 `${MY_PACKAGE}/config/my_params.yaml"`에 있다고 가정하자.
