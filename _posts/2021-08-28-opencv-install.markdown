@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[opencv] opencv install"
+title:  "[opencv] Install 3.4.5 version"
 date:   2021-08-28
 category: opencv
 ---
