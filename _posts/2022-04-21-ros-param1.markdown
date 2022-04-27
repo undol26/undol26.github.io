@@ -114,3 +114,5 @@ ros::param::param<std::string>("default_param", default_param, "default_value");
 1. [[ROS] Parameter - 1. Manage with command and source file](https://undol26.github.io/ros/2022/04/21/ros-param1.html)
 2. [[ROS] Parameter - 2. Manage with launch file](https://undol26.github.io/ros/2022/04/22/ros-param2.html)
 3. [[ROS] Parameter - 3. Manage with YAML file](https://undol26.github.io/ros/2022/04/23/ros-param3.html)
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fundol26.github.io%2Fros%2F2022%2F04%2F21%2Fros-param1.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
