@@ -1,28 +1,31 @@
 ---
 layout: post
-title:  "[leetcode] Array - max consecutive ones"
+title:  "[leetcode] Array - 1. max consecutive ones"
 date:   2022-02-22
 category: leetcode
 ---
-# Arrays
-
 ## Problem 1. Max consecutive ones.
-> Given a binary array nums, return the maximum number of consecutive 1's in the array.
+```yaml
+Given a binary array nums, return the maximum number of consecutive 1's in the array.
+```
 
-#### Example 1:
-> Input: nums = [1,1,0,1,1,1] <br>
-> Output: 3 <br>
-> Explanation: The first two digits or the last three digits are consecutive 1s. <br>
-> The maximum number of consecutive 1s is 3.
+### Example 1:
+```yaml
+Input: nums = [1,1,0,1,1,1]
+Output: 3
+Explanation: The first two digits or the last three digits are consecutive 1s.
+The maximum number of consecutive 1s is 3.
+```
 
-#### Example 2:
-> Input: nums = [1,0,1,1,0,1] <br>
-> Output: 2
+### Example 2:
+```yaml
+Input: nums = [1,0,1,1,0,1]
+Output: 2
+```
 
-#### Constraints:
-> 1 <= nums.length <= 105 <br>
-> nums[i] is either 0 or 1.
-
+### Constraints:
+* `1 <= nums.length <= 105`
+* `nums[i]` is either `0` or `1`.
 <br>
 
 ---
