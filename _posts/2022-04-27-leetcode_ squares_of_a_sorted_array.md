@@ -24,8 +24,8 @@ Output: [4,9,9,49,121]
 ```
 
 ### Constraints:
-* `1 <= nums.length <= 104`
-* `-104 <= nums[i] <= 104`
+* `1 <= nums.length <= 10^4`
+* `-104 <= nums[i] <= 10^4`
 * `nums` is sorted in **non-decreasing** order.
 
 <br>
