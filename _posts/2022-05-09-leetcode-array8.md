@@ -70,3 +70,5 @@ public:
 결과는 이렇다.
 
 ![alt text](/public/img/leetcode/leetcode-array-8.png)
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fundol26.github.io%2Fleetcode%2F2022%2F05%2F09%2Fleetcode-array8.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
