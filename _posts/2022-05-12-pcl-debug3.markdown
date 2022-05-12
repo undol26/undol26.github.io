@@ -1,0 +1,82 @@
+---
+layout: post
+title:  "[PCL] Exception has occured. Segmentation fault"
+date:   2022-05-12
+category: PCL
+---
+
+## Intro.
+Segmentation fault는 정말 해결하기 어려운 문제중에 하나이다. 여러 원인이 있는데 내가 가장 먼저 의심하는 부분은 접근할 수 없는 array의 `index`에 접근할 때 종종 일어난다.
+
+상황은 다음과 같다. `B()` 함수의 인자로 `inputPCLCloud`가 `ptr` 형태로 들어온다.
+그 input을 적절한 범위안의 새로운 `ptr` 형태인 `ROIPCLCLoud`로 만들고 싶다.
+
+```cpp
+void A::B(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr inputPCLCloud)
+{
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr ROIPCLCloud(new pcl::PointCloud<pcl::PointXYZRGB>);
+
+    int index = 0;
+    for (unsigned int i = 0; i < inputPCLCloud->points.size(); i++) {
+        if (0 <= inputPCLCloud->points[i].x && inputPCLCloud->points[i].x <= m_ROISizeinPositiveX &&
+            m_ROISizeinNegativeY <= inputPCLCloud->points[i].y &&
+            inputPCLCloud->points[i].y <= m_ROISizeinPositiveY &&
+            m_ROISizeinNegativeZ <= inputPCLCloud->points[i].z &&
+            inputPCLCloud->points[i].z <= m_ROISizeinPositiveZ) {
+            ROIPCLCloud->points[index].x = inputPCLCloud->points[i].x;
+            ROIPCLCloud->points[index].y = inputPCLCloud->points[i].y;
+            ROIPCLCloud->points[index].z = inputPCLCloud->points[i].z;
+            ROIPCLCloud->points[index].r = inputPCLCloud->points[i].r;
+            ROIPCLCloud->points[index].g = inputPCLCloud->points[i].g;
+            ROIPCLCloud->points[index].b = inputPCLCloud->points[i].b;
+            index++;
+        }
+    }
+```   
+
+이 경우 `ROIPCLCloud->points[index].x = inputPCLCloud->points[i].x;` 여기서부터 `segmentation fault`가 뜬다. 왜그럴까?
+
+## Sol.
+`ROIPCLCloud` 의 경우 `ptr`로 선언하기 때문에 그 크기가 얼마인지 알 수가 없다. 그렇기 때문에 그 크기를 명시적으로 표시해야한다. 
+
+그 크기는 다음의 코드와 같이 `width`, `height` 등의 값을 입력해주면 된다.
+
+```cpp
+void A::B(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr inputPCLCloud)
+{
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr ROIPCLCloud(new pcl::PointCloud<pcl::PointXYZRGB>);
+
+    for (unsigned int i = 0; i < inputPCLCloud->points.size(); i++) {
+        if (0 <= inputPCLCloud->points[i].x && inputPCLCloud->points[i].x <= m_ROISizeinPositiveX &&
+            m_ROISizeinNegativeY <= inputPCLCloud->points[i].y &&
+            inputPCLCloud->points[i].y <= m_ROISizeinPositiveY &&
+            m_ROISizeinNegativeZ <= inputPCLCloud->points[i].z &&
+            inputPCLCloud->points[i].z <= m_ROISizeinPositiveZ) {
+            NumberOfROI++;
+        }
+    }
+
+    ROIPCLCloud->width = NumberOfROI;
+    ROIPCLCloud->height = 1;
+    ROIPCLCloud->is_dense = inputPCLCloud->is_dense;
+    ROIPCLCloud->points.resize(NumberOfROI);
+
+    int index = 0;
+    for (unsigned int i = 0; i < inputPCLCloud->points.size(); i++) {
+        if (0 <= inputPCLCloud->points[i].x && inputPCLCloud->points[i].x <= m_ROISizeinPositiveX &&
+            m_ROISizeinNegativeY <= inputPCLCloud->points[i].y &&
+            inputPCLCloud->points[i].y <= m_ROISizeinPositiveY &&
+            m_ROISizeinNegativeZ <= inputPCLCloud->points[i].z &&
+            inputPCLCloud->points[i].z <= m_ROISizeinPositiveZ) {
+            ROIPCLCloud->points[index].x = inputPCLCloud->points[i].x;
+            ROIPCLCloud->points[index].y = inputPCLCloud->points[i].y;
+            ROIPCLCloud->points[index].z = inputPCLCloud->points[i].z;
+            ROIPCLCloud->points[index].r = inputPCLCloud->points[i].r;
+            ROIPCLCloud->points[index].g = inputPCLCloud->points[i].g;
+            ROIPCLCloud->points[index].b = inputPCLCloud->points[i].b;
+            index++;
+        }
+    }
+```   
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fundol26.github.io%2Fpcl%2F2022%2F05%2F12%2Fpcl-debug3.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
