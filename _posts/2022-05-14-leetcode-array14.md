@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[leetcode] Array - 14. Max Consecutive Ones II (Medium)"
+title:  "[leetcode] Array - 1004. Max Consecutive Ones II (Medium)"
 date:   2022-05-14
 category: leetcode
 ---
@@ -66,7 +66,7 @@ public:
 
 결과는 그냥 무난한 수준. 이중 포문을 쓰고 싶었는데 잘 참았다..
 
-빠른 결과들을 보니, 결국 좋은 알고리즘을 생각해서 구현해야 빨라지는 것 같다. 즉, 내가 생각한 앞뒤의 0을 보고 찾는 것보다 더 좋은.. 
+빠른 결과들을 보니, 결국 좋은 알고리즘을 생각해서 구현해야 빨라지는 것 같다. 즉, 내가 생각한 앞뒤의 0을 보고 찾는 것보다 더 좋은..
 
 결과를 내는 것은 하겠으나 빠르고 좋은 것을 내는건 쉽지 않구나.
 

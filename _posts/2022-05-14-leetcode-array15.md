@@ -27,6 +27,7 @@ The first distinct maximum is 2.
 The second distinct maximum is 1.
 The third distinct maximum does not exist, so the maximum (2) is returned instead.
 ```
+
 ### Example 3:
 ```yaml
 Input: nums = [2,2,3,1]
