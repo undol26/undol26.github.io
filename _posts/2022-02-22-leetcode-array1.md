@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "[leetcode] Array - 1. max consecutive ones"
+title:  "[leetcode] Array - 485. Max consecutive ones (easy)"
 date:   2022-02-22
 category: leetcode
 ---
-## Problem 1. Max consecutive ones.
+## Problem 485. Max consecutive ones (easy)
 ```yaml
 Given a binary array nums, return the maximum number of consecutive 1's in the array.
 ```
@@ -63,3 +63,5 @@ public:
     }
 };
 ```
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fundol26.github.io%2Fleetcode%2F2022%2F02%2F22%2Fleetcode-array1.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

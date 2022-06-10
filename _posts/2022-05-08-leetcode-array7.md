@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "[leetcode] Array - 7. Remove Duplicates from Sorted Array"
+title:  "[leetcode] Array - 26. Remove Duplicates from Sorted Array (Easy)"
 date:   2022-05-08
 category: leetcode
 ---
 
-## Problem 7. Remove Duplicates from Sorted Array
+## Problem 26. Remove Duplicates from Sorted Array (Easy)
 Given an integer array `nums` sorted in **non-decreasing order**, remove the duplicates **in-place** such that each unique element appears only **once**. The **relative order** of the elements should be kept the **same**.
 
 <br>

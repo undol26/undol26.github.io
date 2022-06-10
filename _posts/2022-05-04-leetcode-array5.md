@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "[leetcode] Array - 5. Merge Sorted Array"
+title:  "[leetcode] Array - 88. Merge Sorted Array (Easy)"
 date:   2022-05-04
 category: leetcode
 ---
 
-## Problem 5. Merge Sorted Array
+## Problem 88. Merge Sorted Array (Easy)
 You are given two integer arrays `nums1` and `nums2`, sorted in **non-decreasing order**, and two integers `m` and `n`, representing the number of elements in `nums1 `and `nums2` respectively.
 
 <br>

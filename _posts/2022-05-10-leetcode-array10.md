@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "[leetcode] Array - 10. Replace Elements with Greatest Element on Right Side"
+title:  "[leetcode] Array - 1299. Replace Elements with Greatest Element on Right Side (Easy)"
 date:   2022-05-09
 category: leetcode
 ---
 
-## Problem 10. Replace Elements with Greatest Element on Right Side
+## Problem 1299. Replace Elements with Greatest Element on Right Side (Easy)
 Given an array `arr`, replace every element in that array with the greatest element among the elements to its right, and replace the last element with `-1`.
 
 

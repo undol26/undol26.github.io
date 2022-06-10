@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "[leetcode] Array - 3. Squares of a Sorted Array"
+title:  "[leetcode] Array - 977. Squares of a Sorted Array (Easy)"
 date:   2022-04-27
 category: leetcode
 ---
 
-## Problem 3. Squares of a Sorted Array
+## Problem 977. Squares of a Sorted Array (Easy)
 Given an integer array `nums` sorted in **non-decreasing** order, return *an array* of **the squares of each number** *sorted in non-decreasing order*.
 
 ### Example 1:
@@ -106,3 +106,5 @@ public:
     }
 };
 ```
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fundol26.github.io%2Fleetcode%2F2022%2F04%2F27%2Fleetcode-array3.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

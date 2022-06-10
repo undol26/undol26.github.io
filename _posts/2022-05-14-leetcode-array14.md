@@ -5,7 +5,7 @@ date:   2022-05-14
 category: leetcode
 ---
 
-## Problem 14. Max Consecutive Ones II
+## Problem 1004. Max Consecutive Ones II
 Given a binary array `nums`, return *the maximum number of consecutive `1`'s in the array if you can flip at most one `0`*.
 
 ### Example 1:

@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "[leetcode] Array - 2. count even digits"
+title:  "[leetcode] Array - 1295. Find Numbers with Even Number of Digits (Easy)"
 date:   2022-02-22
 category: leetcode
 ---
 
-## Problem 2. Find Numbers with Even Number of Digits.
+## Problem 1295. Find Numbers with Even Number of Digits (Easy)
 ```yaml
 Given an array nums of integers, return how many of them contain an even number of digits.
 ```
@@ -70,3 +70,5 @@ public:
     }
 };
 ```
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fundol26.github.io%2Fleetcode%2F2022%2F02%2F22%2Fleetcode-array2.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)

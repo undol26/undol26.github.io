@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "[leetcode] Array - 12. Sort Array By Parity"
+title:  "[leetcode] Array - 905. Sort Array By Parity (Easy)"
 date:   2022-05-13
 category: leetcode
 ---
 
-## Problem 12. Sort Array By Parity
+## Problem 905. Sort Array By Parity (Easy)
 Given an integer array `nums`, move all the even integers at the beginning of the array followed by all the odd integers.
 
 <br>

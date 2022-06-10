@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "[leetcode] Array - 9. Valid Mountain Array"
+title:  "[leetcode] Array - 941. Valid Mountain Array (Easy)"
 date:   2022-05-09
 category: leetcode
 ---
 
-## Problem 9. Valid Mountain Array
+## Problem 941. Valid Mountain Array (Easy)
 Given an array of integers `arr`, return *`true`* *if and only if it is a valid mountain array.*
 
 <br>

@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "[leetcode] Array - 8. Check If N and Its Double Exist"
+title:  "[leetcode] Array - 1346. Check If N and Its Double Exist (Easy)"
 date:   2022-05-09
 category: leetcode
 ---
 
-## Problem 8. Check If N and Its Double Exist
+## Problem 1346. Check If N and Its Double Exist (Easy)
 Given an array `arr` of integers, check if there exists two integers `N` and `M` such that `N` is the double of `M` ( i.e. `N = 2 * M`).
 
 <br>

@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "[leetcode] Array - 11. Move Zeroes"
+title:  "[leetcode] Array - 283. Move Zeroes (Easy)"
 date:   2022-05-12
 category: leetcode
 ---
 
-## Problem 11. Move Zeroes
+## Problem 283. Move Zeroes (Easy)
 Given an integer array `nums`, move all `0`'s to the end of it while maintaining the relative order of the non-zero elements.
 
 <br>

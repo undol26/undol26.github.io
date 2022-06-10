@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "[leetcode] Array - 6. Remove Element"
+title:  "[leetcode] Array - 27. Remove Element (Easy)"
 date:   2022-05-05
 category: leetcode
 ---
 
-## Problem 6. Remove Element
+## Problem 27. Remove Element (Easy)
 Given an integer array `nums` and an integer `val`, remove all occurrences of `val` in `nums` **in-place**. The relative order of the elements may be changed.
 
 <br>
