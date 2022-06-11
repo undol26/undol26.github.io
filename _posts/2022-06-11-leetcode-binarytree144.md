@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[leetcode] Array - 144. Binary Tree Preorder Traversal (Easy)"
+title:  "[leetcode] Binary Tree - 144. Binary Tree Preorder Traversal (Easy)"
 date:   2022-06-11
 category: leetcode
 ---
@@ -35,7 +35,8 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 
 ## My solution
 
-임의의 binary tree가 주어질 때, `preorder traversal` 로 반환해라.
+임의의 `binary tree`가 주어질 때, `preorder traversal` 로 반환해라.
+
 `recursive` 한 방법으로 풀었다.
 
 ```cpp
