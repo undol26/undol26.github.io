@@ -37,7 +37,7 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 
 임의의 `binary tree`가 주어질 때, `inorder traversal` 로 반환해라.
 
-[2022/06/11 [leetcode] Binary Tree - 144. Binary Tree Preorder Traversal (Easy)](https://undol26.github.io/ros/2022/06/11/leetcode-binarytree144.html) 문제에서 `push` 순서만 바꾸면 된다.
+[2022/06/11 [leetcode] Binary Tree - 144. Binary Tree Preorder Traversal (Easy)](https://undol26.github.io/ros/2022/06/11/leetcode-binarytree144.html) 문제에서 `push` 순서만 바꾸면 된다. 
 
 `recursive` 한 방법으로 풀었다.
 
